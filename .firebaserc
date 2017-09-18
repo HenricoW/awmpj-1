@@ -1,0 +1,6 @@
+{
+  "projects": {
+    "default": "nuvest-1",
+    "staging": "awesome-app-2617f"
+  }
+}

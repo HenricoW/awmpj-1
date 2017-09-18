@@ -1,0 +1,7 @@
+<div class="container pt-5 mt-5">
+  <h5 *ngIf="dbsuccess">Database successfully upadated!</h5>
+  <p class="pt-5 mt-5">
+    bcc-register works!
+  </p>
+  <div class="btn btn-outline-success" (click)="updateRegField()" *ngIf="!dbsuccess">User Id: {{uid}}</div>
+</div>

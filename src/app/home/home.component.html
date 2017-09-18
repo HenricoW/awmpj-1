@@ -1,0 +1,82 @@
+<!-- <div class="py-4">
+  <div class="jumbotron jumbotron-fluid bg-inverse text-white">
+    <div class="container">
+      <div class="row justify-content-center">
+        <h1 class="display-4 my-5">Welcome to my app</h1>
+        <p class="lead">Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium voluptate vitae nisi quidem? Eos provident perspiciatis atque quam ipsum ex architecto ducimus natus obcaecati exercitationem eaque aperiam nulla ipsam temporibus qui libero vero voluptas illo, at repellendus nobis? Voluptates aperiam natus optio dicta provident, ea distinctio dolores praesentium suscipit! Laudantium.</p>
+        <p><a class="btn btn-inverse btn-lg" href="#" role="button">Learn more &raquo;</a></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4">
+        <div class="card">
+          <h3 class="card-header">Featured</h3>
+          <div class="card-block">
+            <h4 class="card-title">Special title treatment</h4>
+            <p class="card-text">Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.</p>
+            <a href="#" class="btn btn-secondary">View details &raquo;</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card">
+          <h3 class="card-header">Featured</h3>
+          <div class="card-block">
+            <h4 class="card-title">Special title treatment</h4>
+            <p class="card-text">Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.</p>
+            <a href="#" class="btn btn-secondary">View details &raquo;</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card">
+          <h3 class="card-header">Featured</h3>
+          <div class="card-block">
+            <h4 class="card-title">Special title treatment</h4>
+            <p class="card-text">Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.</p>
+            <a href="#" class="btn btn-secondary">View details &raquo;</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+
+<div class="site-wrapper">
+  <div class="site-wrapper-inner">
+    <div class="cover-container">
+      <!-- <div class="masthead clearfix">
+        <div class="inner">
+          <h3 class="masthead-brand">Cover</h3>
+          <nav class="nav nav-masthead">
+            <a class="nav-link active" href="#">Home</a>
+            <a class="nav-link" href="#">Features</a>
+            <a class="nav-link" href="#">Contact</a>
+          </nav>
+        </div>
+      </div> -->
+
+      <div class="inner cover">
+        <h1 class="cover-heading pt-4">{{appName}}</h1>
+        <p class="lead">Unlock the power of blockchain technology and trading bots to your advantage</p>
+        <div *ngIf="!loggedin">
+          <p class="lead">Sign up for free to get the guide</p>
+          <p class="lead">
+            <a [routerLink]="['/signup']" class="btn btn-lg btn-success">Register</a>
+          </p>
+        </div>
+      </div>
+
+      <!-- <app-footer></app-footer> -->
+      <!-- <div class="mastfoot">
+        <div class="inner">
+          <p>Cover template for <a href="https://getbootstrap.com">Bootstrap</a>, by @mdo.</p>
+        </div>
+      </div> -->
+    </div>
+  </div>
+</div>

@@ -1,0 +1,72 @@
+/* Dashboard styles */
+#dash-wrapper {
+    /* margin-left: 0px;
+    padding-left: 0px; */
+    width: 100%;
+}
+
+/* Sidebar */
+#sidebar {
+    z-index: 1;
+    position: absolute;
+    width: 0;
+    height: 100%;
+    overflow-y: hidden;
+    background: #333333;
+    /* background: #2c3e50; */
+    opacity: 0.7;
+    transition: 300ms linear;
+}
+
+#dash-content-wrapper{
+    /* width: 100%; */
+    position: absolute;
+    /* padding: 15px; */
+    transition: 300ms linear;
+    /* background: #2626BF; */
+    /* background-image: url('../../assets/img/blur-bg.jpg'); */
+}
+
+#sidebar-nav {
+    padding-left: 0px;
+}
+
+/* Change width of sidebar to display */
+#dash-wrapper.menuDisplayed #sidebar {
+    width: 150px;
+    margin-right: 10px;
+}
+
+#dash-wrapper.menuDisplayed #dash-content-wrapper {
+    padding-left: 150px;
+}
+
+#sidebar-nav ul {
+    padding: 0;
+}
+
+#sidebar-nav li {
+    /* text-indent: 20px; */
+    line-height: 40px;
+    list-style: none;
+}
+
+#sidebar-nav li a {
+    display: block;
+    text-decoration: none;
+    color: #ddd;
+}
+
+#sidebar-nav li a:hover {
+    background: #16a085;
+}
+
+#dash-content-wrapper .card-block{
+    color: black;
+    text-shadow: none;
+}
+
+.card-block{
+    color: black;
+    text-shadow: none;
+}
