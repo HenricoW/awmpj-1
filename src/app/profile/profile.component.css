@@ -3,6 +3,10 @@
     text-shadow: none;
 }
 
+.card {
+    opacity: 0.7;
+}
+
 table {
     margin: 0 auto;
 }

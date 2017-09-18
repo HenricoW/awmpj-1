@@ -3,7 +3,7 @@
     <h1>Account Setup</h1>
     <p>Here you will get your account ready and secure. Let's go.</p>
     <!-- <div class="col-12 p-2">
-      <div class="card px-0" style="opacity: 0.7;">
+      <div class="card px-0">
         <div class="card-block bg-faded">
           <h2 class="card-title">Success!</h2>
           <p class="card-text">Your BCC account is now secure</p>
@@ -14,7 +14,7 @@
       </div>
     </div> -->
     <div class="col-12 p-2" *ngIf="!activated">
-      <div class="card px-0" style="opacity: 0.7;">
+      <div class="card px-0">
         <!-- <div class="card-header bg-inverse text-white">
           Featured
         </div> -->
@@ -28,7 +28,7 @@
       </div>
     </div>
     <div class="col-12 p-2" *ngIf="allDone">
-      <div class="card px-0" style="opacity: 0.7;">
+      <div class="card px-0">
         <div class="card-block bg-faded">
           <h2 class="card-title">Success!</h2>
           <p class="card-text">Your brand new BitConnect account is now secure. Please remember your password and keep your code card in a safe place. You will need the code card when making withdrawals.</p>
@@ -37,7 +37,7 @@
       </div>
     </div>
     <div class="col-12 p-2" *ngIf="!passChgd">
-      <div class="card px-0" style="opacity: 0.7;">
+      <div class="card px-0">
         <div class="card-block bg-faded">
           <h2 class="card-title">Change your BitConnect password</h2>
           <p class="card-text">Secure your account with a new password</p>
@@ -53,7 +53,7 @@
       </div>
     </div>
     <div class="col-12 p-2" *ngIf="!goog2fa">
-      <div class="card px-0" style="opacity: 0.7;">
+      <div class="card px-0">
         <div class="card-block bg-faded">
           <h2 class="card-title">Set up 2FA</h2>
           <p class="card-text">Add an extra layer of security to your BCC account.</p>
@@ -63,7 +63,7 @@
       </div>
     </div>
     <div class="col-12 p-2" *ngIf="!codeCard">
-      <div class="card px-0" style="opacity: 0.7;">
+      <div class="card px-0">
         <div class="card-block bg-faded">
           <h2 class="card-title">Create a Code Card</h2>
           <p class="card-text">Secure your withdrawals.</p>
