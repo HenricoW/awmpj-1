@@ -7,7 +7,6 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireDatabaseModule, AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 import * as firebase from 'firebase/app';
-import { firebaseConfig } from '../../assets/fbConfig';
 
 @Component({
   selector: 'app-navbar',
@@ -21,9 +20,8 @@ export class NavbarComponent implements OnInit {
   private pass: string;
   private error: boolean;
   private loggedin: boolean;
-  private dbRef;
-  private appName: string = '';
-  private userName: string = '';
+  private appName: string;
+  private userName: string;
   
   constructor(private afAuth: AngularFireAuth,
               private router: Router,
@@ -35,18 +33,9 @@ export class NavbarComponent implements OnInit {
       if(e != null) {
         // console.log(e.uid);
         console.log('user logged in');
-        
         this.email = ''; this.pass = '';
         this.loggedin = true;
-        this.afDB.database.ref('/users/'+e.uid)
-        .once('value')
-        .then(snap => {
-          this.userName = snap.val().uname;
-          this.appProps.appName = snap.val().uname;
-        })
-        .catch(e => {
-          console.log(e.message);
-        });
+        this.getUserData(e);
       }
     });
   }
@@ -63,7 +52,6 @@ export class NavbarComponent implements OnInit {
         this.loggedin = false;
       }
     });
-
     // if(!this.error) this.router.navigate(['dashboard']);
     // if(!this.error){}
   }
@@ -72,15 +60,49 @@ export class NavbarComponent implements OnInit {
     const promise = this.afAuth.auth.signOut();
     promise.catch(e => {
       console.log(e.message);
-      if(e){
-        alert('There was a problem logging out. Please try again.');
-      }
+      if(e) alert('There was a problem logging out. Please try again.');
     });
 
+    this.loggedin = false; this.email = ''; this.pass = ''; this.userName = '';
     console.log('user logged out');
-    this.email = ''; this.pass = '';
-    this.loggedin = false;
-    this.userName = '';
+  }
+
+  getUserData(e){
+    this.afDB.database.ref('/users/'+e.uid)
+    .once('value')
+    .then(snap => {
+      this.userName = snap.val().uname;
+      this.appProps.userid = e.uid;
+      this.appProps.userDBentry = snap.val();
+      this.getTempPass(e);
+      this.getBenifData(e);
+    })
+    .catch(e => {
+      console.log(e.message);
+    });
+  }
+
+  getTempPass(e){
+    this.afDB.database.ref('/bccRegQue/'+e.uid)
+    .child('tempPassw')
+    .once('value')
+    .then(snap => {
+      this.appProps.userTempPass = snap.val();
+    })
+    .catch(e => {
+      console.log(e.message);
+    });
+  }
+
+  getBenifData(e){
+    this.afDB.database.ref('/beneficiaries/'+e.uid)
+    .once('value')
+    .then(snap => {
+      this.appProps.userBeneficiary = snap.val();
+    })
+    .catch(e => {
+      console.log(e.message);
+    });
   }
 
   ngOnInit() {}
