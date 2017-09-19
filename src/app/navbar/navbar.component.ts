@@ -12,7 +12,7 @@ import * as firebase from 'firebase/app';
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css'],
-  providers: [CommonPropertiesService]
+  providers: []
 })
 
 export class NavbarComponent implements OnInit {
@@ -74,6 +74,7 @@ export class NavbarComponent implements OnInit {
       this.userName = snap.val().uname;
       this.appProps.userid = e.uid;
       this.appProps.userDBentry = snap.val();
+      console.log(this.appProps.userDBentry);
       this.getTempPass(e);
       this.getBenifData(e);
     })

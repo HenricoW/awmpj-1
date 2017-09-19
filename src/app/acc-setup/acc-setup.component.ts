@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireDatabaseModule, AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 
+import { CommonPropertiesService } from '../common-properties.service';
+
 @Component({
   selector: 'app-acc-setup',
   templateUrl: './acc-setup.component.html',
@@ -18,7 +20,8 @@ export class AccSetupComponent implements OnInit {
   pass: string;
 
   constructor(private afAuth: AngularFireAuth,
-              private afDB: AngularFireDatabase) {
+              private afDB: AngularFireDatabase,
+              private appProps: CommonPropertiesService) {
     this.afAuth.authState.subscribe(e => {
       if(e != null) {
         this.uid = e.uid;
@@ -53,6 +56,8 @@ export class AccSetupComponent implements OnInit {
         this.pass = '';
       }
     });
+
+    console.log(appProps.userid);
   }
 
   

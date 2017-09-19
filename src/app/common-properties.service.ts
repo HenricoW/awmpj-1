@@ -2,12 +2,12 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class CommonPropertiesService {
-  appName = 'Derivation Analytics';
-  userid: string;
-  userDBentry: object;
-  userTempPass: string;
-  userBeneficiary: object;
-  bccDailyRates: object;
+  public appName = 'Derivation Analytics';
+  public userid: string;
+  public userDBentry: any;
+  public userTempPass: string;
+  public userBeneficiary: any;
+  public bccDailyRates: any;
   
   constructor() {}
 

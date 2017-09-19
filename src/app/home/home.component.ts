@@ -21,7 +21,7 @@ export class HomeComponent implements OnInit {
   private rateVals: number[] = [];
   private rateDates: string[] = [];
   private displayChart: boolean = false;
-  private noChartDays: number = 14;
+  private noChartDays: number = 21;
 
   // bar chart properties
   public barChartOptions:any = {
@@ -39,7 +39,7 @@ export class HomeComponent implements OnInit {
   public barChartLegend:boolean = true;
  
   public barChartData:any[] = [
-    {data: this.randomArray(this.noChartDays, 20, 5) , label: 'Daily Returns'},
+    {data: this.randomArray(this.noChartDays, 20, 5) , label: 'Daily Returns (%)'},
   ];
   
   constructor(private afAuth: AngularFireAuth,

@@ -32,6 +32,8 @@ import { AccSetupComponent } from './acc-setup/acc-setup.component';
 import { AccountsComponent } from './accounts/accounts.component';
 import { AddAccountComponent } from './add-account/add-account.component';
 
+import { CommonPropertiesService } from './common-properties.service';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -48,7 +50,7 @@ import { AddAccountComponent } from './add-account/add-account.component';
     BccRegisterComponent,
     AccSetupComponent,
     AccountsComponent,
-    AddAccountComponent
+    AddAccountComponent,
   ],
   imports: [
     BrowserModule,
@@ -65,7 +67,7 @@ import { AddAccountComponent } from './add-account/add-account.component';
     MyDatePickerModule,
     ChartsModule,
   ],
-  providers: [],
+  providers: [CommonPropertiesService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
