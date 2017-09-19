@@ -12,6 +12,7 @@ import { DatePickerModule } from 'ng2-datepicker';
 import { NKDatetimeModule } from 'ng2-datetime/ng2-datetime';
 import { DatepickerModule } from 'ng2-bootstrap';
 import { MyDatePickerModule } from 'mydatepicker';
+import { ChartsModule } from 'ng2-charts';
 
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
@@ -62,6 +63,7 @@ import { AddAccountComponent } from './add-account/add-account.component';
     NKDatetimeModule,
     DatepickerModule,
     MyDatePickerModule,
+    ChartsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
