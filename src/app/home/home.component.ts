@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { CommonPropertiesService } from '../common-properties.service';
 
 import { AngularFireAuth } from 'angularfire2/auth';
@@ -12,87 +12,93 @@ import { ChartsModule } from 'ng2-charts';
   providers: [CommonPropertiesService]
 })
 export class HomeComponent implements OnInit {
+  @ViewChild('chartContainer') chartContainer: ElementRef;
+
   private appName: string;
   private loggedin: boolean;
-  private ratesObj;
-  public rateVals:number[] = [];
-  private rateDates:string[] = [];;
+  private ratesObj: object;
+  private pulledDatesRates = {'dates':[], 'rates':[]};
+  private rateVals: number[] = [];
+  private rateDates: string[] = [];
+  private displayChart: boolean = false;
+  private noChartDays: number = 14;
 
   // bar chart properties
   public barChartOptions:any = {
     scaleShowVerticalLines: false,
     responsive: true
   };
-  public barChartLabels:string[] = ['2006', '2007', '2008', '2009', '2010', '2011', '2012'];
+  public barChartLabels:string[] = [];
   public barChartColors:Array<any> = [
-    { // grey
-      backgroundColor: 'rgba(148,159,177,1)',
-      borderColor: 'rgba(148,159,177,1)',
+    { 
+      backgroundColor: 'rgba(255, 123, 61, 1)',
+      // backgroundColor: 'rgba(148,159,177,1)',         // grey
     }
   ];
   public barChartType:string = 'bar';
-  public barChartLegend:boolean = false;
+  public barChartLegend:boolean = true;
  
   public barChartData:any[] = [
-    {data: [65, 59, 80, 81, 56, 55, 40], label: 'Daily Returns'},
+    {data: this.randomArray(this.noChartDays, 20, 5) , label: 'Daily Returns'},
   ];
   
   constructor(private afAuth: AngularFireAuth,
               private afDB: AngularFireDatabase,
               private appProps: CommonPropertiesService) {
     this.appName = this.appProps.appName;
+    this.updateChart();
     this.afAuth.authState.subscribe(e => {
-      if(e != null) {
-        // console.log('user logged in');
-        this.loggedin = true;
-      } else {
-        this.loggedin = false;
-      }
+      // for registration button
+      this.loggedin = (e != null) ? true : false;
     });
   }
 
-  // charting library events
-  public chartClicked(e:any):void {
-    console.log(e);
+  private pullRateData(ratesObj):void {
+    var i = 0;
+    for(var date in ratesObj){
+      this.rateDates.push(date);
+      this.rateVals.push(ratesObj[date]);
+      i++;
+    }
+    this.pulledDatesRates.dates = this.rateDates;
+    this.pulledDatesRates.rates = this.rateVals;
   }
-  public chartHovered(e:any):void {
-    console.log(e);
-  }
-  public updateChart():void {
 
+  private randomNo(min,max) {
+    return (Math.round((max-min) * Math.random() + min));
+  }
+
+  private randomArray(num_elements,min,max) {
+    var nums = new Array;
+    for (var i=0; i<num_elements; i++) nums[i] = this.randomNo(min,max);
+    return (nums);
+  }
+
+  // charting library events
+  private updateChart():void {
     this.afDB.database.ref('dailyRate')
     .once('value')
     .then((snap) => {
       this.ratesObj = snap.val();
-      var i = 0;
-      for(var date in this.ratesObj){
-        // [DONE] GET THIS TO WORK!!
-        this.rateDates.push(date);
-        this.rateVals.push(this.ratesObj[date]);
-        console.log(this.rateDates[i]+"::"+this.rateVals[i]);
-        i++;
-      }
+      this.pullRateData(this.ratesObj);
+      // update labels
+      this.barChartLabels = 
+        this.pulledDatesRates.dates.slice(this.pulledDatesRates.dates.length-this.noChartDays);
+      // update values
+      let clone = JSON.parse(JSON.stringify(this.barChartData));
+      clone[0].data = 
+        this.pulledDatesRates.rates.slice(this.pulledDatesRates.rates.length-this.noChartDays);
+      this.barChartData = clone;
+      /* (My guess), for Angular to recognize the change in the dataset it has to change the dataset variable directly,
+       * so one way around it, is to clone the data, change it and then assign it;
+       */
+      this.displayChart = true;
     })
     .catch((e) => {
       console.log(e.message);
     });
-    
-    // Only Change 3 values
-    let data = [Math.round(Math.random() * 100), 59, 80,
-      (Math.random() * 100), 56,
-      (Math.random() * 100), 40];
-    let clone = JSON.parse(JSON.stringify(this.barChartData));
-    clone[0].data = data;
-    this.barChartData = clone;
-    /**
-     * (My guess), for Angular to recognize the change in the dataset
-     * it has to change the dataset variable directly,
-     * so one way around it, is to clone the data, change it and then
-     * assign it;
-     */
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
 }

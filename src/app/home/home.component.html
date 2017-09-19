@@ -13,7 +13,7 @@
       </div> -->
 
       <div class="inner cover">
-        <h1 class="cover-heading pt-4">{{appName}}</h1>
+        <h1 class="cover-heading pt-1">{{appName}}</h1>
         <p class="lead">Unlock the power of blockchain technology and trading bots to your advantage</p>
         <div *ngIf="!loggedin">
           <p class="lead">Sign up for free to get the guide</p>
@@ -23,21 +23,20 @@
         </div>
       </div>
 
-      <div class="card">
+      <!-- <div id="chartContainer"></div> -->
+
+      <div class="card mb-4" *ngIf="displayChart">
         <div class="card-block bg-faded">
           <div style="display: block">
             <canvas baseChart
-                    [datasets]="barChartData"
-                    [labels]="barChartLabels"
-                    [colors]="barChartColors"
-                    [options]="barChartOptions"
-                    [legend]="barChartLegend"
-                    [chartType]="barChartType"
+                    [datasets]="barChartData" [labels]="barChartLabels"
+                    [colors]="barChartColors" [options]="barChartOptions"
+                    [legend]="barChartLegend" [chartType]="barChartType"
                     (chartHover)="chartHovered($event)"
-                    (chartClick)="chartClicked($event)"></canvas>
+                    (chartClick)="chartClicked($event)">
+            </canvas>
           </div>
         </div>
-        <button (click)="updateChart()">Update</button>
       </div>
 
       <!-- <app-footer></app-footer> -->
