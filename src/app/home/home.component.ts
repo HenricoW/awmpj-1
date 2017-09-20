@@ -1,15 +1,15 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { CommonPropertiesService } from '../common-properties.service';
 
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireDatabaseModule, AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 import { ChartsModule } from 'ng2-charts';
 
+import { CommonPropertiesService } from '../common-properties.service';
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
-  providers: [CommonPropertiesService]
 })
 export class HomeComponent implements OnInit {
   @ViewChild('chartContainer') chartContainer: ElementRef;
@@ -21,7 +21,7 @@ export class HomeComponent implements OnInit {
   private rateVals: number[] = [];
   private rateDates: string[] = [];
   private displayChart: boolean = false;
-  private noChartDays: number = 21;
+  private noChartDays: number = 31;
 
   // bar chart properties
   public barChartOptions:any = {
@@ -44,7 +44,7 @@ export class HomeComponent implements OnInit {
   
   constructor(private afAuth: AngularFireAuth,
               private afDB: AngularFireDatabase,
-              private appProps: CommonPropertiesService) {
+              public appProps: CommonPropertiesService) {
     this.appName = this.appProps.appName;
     this.updateChart();
     this.afAuth.authState.subscribe(e => {

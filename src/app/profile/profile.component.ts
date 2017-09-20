@@ -9,7 +9,6 @@ import { CommonPropertiesService } from '../common-properties.service';
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css'],
-  providers: []
 })
 export class ProfileComponent implements OnInit {
   userName: string;
@@ -20,7 +19,8 @@ export class ProfileComponent implements OnInit {
 
   constructor(private afAuth: AngularFireAuth,
               private afDB: AngularFireDatabase,
-              private appProps: CommonPropertiesService) {
+              public appProps: CommonPropertiesService) {
+    // this.userName = this.appProps.userid;
     // this.userName = this.appProps.userDBentry.udata.uname;
     // console.log(appProps.userid);
     //   this.firstName = this.appProps.userDBentry.udata.fname;
@@ -47,7 +47,17 @@ export class ProfileComponent implements OnInit {
     });
   }
 
+  // upateUID(){
+  //   this.appProps.setUserId('alskdjfon');
+  // }
+
   ngOnInit() {
+    // this.appProps.useridString$.subscribe(
+    //   data => {
+    //     this.userName = data;
+    //     console.log(data)
+    //   }
+    // );
   }
 
 }

@@ -39,10 +39,6 @@ export class AccSetupComponent implements OnInit {
             this.allDone = false;
           }
         })
-        // .then()
-        // .catch(e => {
-        //   console.log(e.message);
-        // });
 
         this.afDB.database.ref('/users/'+this.uid)
           .child('udata')
@@ -59,8 +55,6 @@ export class AccSetupComponent implements OnInit {
 
     console.log(appProps.userid);
   }
-
-  
 
   ngOnInit() {}
 

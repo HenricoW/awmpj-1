@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { CommonPropertiesService } from '../common-properties.service';
 
 // third party imports
 import { AngularFireModule } from 'angularfire2';
@@ -8,11 +7,12 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireDatabaseModule, AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 import * as firebase from 'firebase/app';
 
+import { CommonPropertiesService } from '../common-properties.service';
+
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css'],
-  providers: []
 })
 
 export class NavbarComponent implements OnInit {
@@ -26,13 +26,13 @@ export class NavbarComponent implements OnInit {
   constructor(private afAuth: AngularFireAuth,
               private router: Router,
               private afDB: AngularFireDatabase,
-              private appProps: CommonPropertiesService
+              public appProps: CommonPropertiesService
               ){ 
     this.appName = this.appProps.appName;
     this.afAuth.authState.subscribe(e => {
       if(e != null) {
         // console.log(e.uid);
-        console.log('user logged in');
+        // console.log('user logged in');
         this.email = ''; this.pass = '';
         this.loggedin = true;
         this.getUserData(e);
@@ -64,7 +64,12 @@ export class NavbarComponent implements OnInit {
     });
 
     this.loggedin = false; this.email = ''; this.pass = ''; this.userName = '';
-    console.log('user logged out');
+    // console.log('user logged out');
+  }
+
+  // Posts data to CommonProps service
+  storeSessData(data){
+    this.appProps.setUserId(data);
   }
 
   getUserData(e){
@@ -74,9 +79,10 @@ export class NavbarComponent implements OnInit {
       this.userName = snap.val().uname;
       this.appProps.userid = e.uid;
       this.appProps.userDBentry = snap.val();
-      console.log(this.appProps.userDBentry);
-      this.getTempPass(e);
-      this.getBenifData(e);
+      // console.log(this.appProps.userDBentry);
+      // this.getTempPass(e);
+      // this.getBenifData(e);
+      this.storeSessData(e.uid);
     })
     .catch(e => {
       console.log(e.message);
