@@ -1,0 +1,21 @@
+.card-block{
+    color: black;
+    text-shadow: none;
+}
+
+.card {
+    color: black;
+    /* opacity: 0.7; */
+}
+
+table {
+    margin: 0 auto;
+}
+
+.card-block a {
+    color: darkslategrey;
+}
+
+a {
+    color: lightsteelblue;
+}
