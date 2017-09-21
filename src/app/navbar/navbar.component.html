@@ -15,7 +15,7 @@
 
         <!-- Hide this link for unregistered users, i.e. show only if logged in -->
 
-        <a class="nav-link ml-4 lead" [routerLink]="['/about']">How it works</a>
+        <a class="nav-link ml-4 lead" [routerLink]="['/about']" *ngIf="loggedin">How it works</a>
       </li>
       <li class="nav-item pt-2">
         <button class="btn btn-md btn-outline-success" [routerLink]="['/signup']" *ngIf="!loggedin">Sign Up</button>

@@ -16,7 +16,7 @@ export class AccSetupComponent implements OnInit {
   passChgd: boolean;
   goog2fa: boolean;
   codeCard: boolean;
-  allDone: boolean = true;
+  allDone: boolean = false;
   pass: string;
 
   constructor(private afAuth: AngularFireAuth,

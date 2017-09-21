@@ -19,7 +19,7 @@ export class NavbarComponent implements OnInit {
   private email: string;
   private pass: string;
   private error: boolean;
-  private loggedin: boolean;
+  private loggedin: boolean = false;
   private appName: string;
   private userName: string;
   
