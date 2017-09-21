@@ -82,7 +82,7 @@ export class NavbarComponent implements OnInit {
       // console.log(this.appProps.userDBentry);
       // this.getTempPass(e);
       // this.getBenifData(e);
-      this.storeSessData(e.uid);
+      // this.storeSessData(e.uid);
     })
     .catch(e => {
       console.log(e.message);
