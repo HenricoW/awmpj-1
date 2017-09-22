@@ -1,5 +1,39 @@
 <div class="row">
   <div class="col-12 py-2">
+    <div class="row justify-content-center py-2">
+      <div class="col-md-3 py-2">
+        <button class="btn btn-outline-success" (click)="setDep()">Deposit</button>
+      </div>
+      <div class="col-md-3 py-2">
+        <button class="btn btn-outline-success" (click)="setWdraw()">Withdraw</button>
+      </div>
+      <div class="col-md-3 py-2">
+        <button class="btn btn-outline-success" (click)="setTxns()">Transactions</button>
+      </div>
+    </div>
+    <div class="row justify-content-center py-2">
+      <div class="col-12" *ngIf="radio=='dep'">
+        <div class="card">
+          <div class="card-block">
+            <h3>Deposit Content here</h3>
+          </div>
+        </div>
+      </div>
+      <div class="col-12" *ngIf="radio=='wdraw'">
+        <div class="card">
+          <div class="card-block">
+            <h3>Withdraw Content here</h3>
+          </div>
+        </div>
+      </div>
+      <div class="col-12" *ngIf="radio=='txns'">
+        <div class="card">
+          <div class="card-block">
+            <h3>Transactions Content here</h3>
+          </div>
+        </div>
+      </div>
+    </div>
     <h1>Transaction works</h1>
     <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aut, possimus eos vitae dolores at incidunt nulla iste vero consequuntur, accusantium dolor explicabo itaque harum eveniet quis inventore ipsa necessitatibus, soluta accusamus illum eius molestias enim? Voluptatum accusamus explicabo quasi quod ducimus aspernatur sequi, eos sit quam cumque at distinctio perferendis!</p>
   </div>

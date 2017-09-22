@@ -6,10 +6,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./transactions.component.css']
 })
 export class TransactionsComponent implements OnInit {
+  private radio = 'txns';
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit() {
-  }
+  setDep(){ this.radio = 'dep'; }
+  setWdraw(){ this.radio = 'wdraw'; }
+  setTxns(){ this.radio = 'txns'; }
+
+  ngOnInit() {}
 
 }
