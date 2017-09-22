@@ -18,41 +18,51 @@ export class AccountsComponent implements OnInit {
   private user: firebase.User;
   private dbObj: any;
   private bankAdded: boolean;
+  private userdata: any;
   
   constructor(private afAuth: AngularFireAuth,
               private db: AngularFireDatabase){
     this.user = afAuth.auth.currentUser;
 
-    db.database.ref('users/'+this.user.uid+'/umeta')
-    .child('bankAcc')
-    .once('value')
-    .then((snap) => {
-      if(snap.val()){
-        this.bankAdded = snap.val();
-      }
-    })
-    .catch(e => {
-      console.log(e.message);
-    });
+    this.userdata = JSON.parse(sessionStorage.getItem('userDBentry'))
+    this.bankAdded = this.userdata.umeta.bankAcc;
+    // db.database.ref('users/'+this.user.uid+'/umeta')
+    // .child('bankAcc')
+    // .once('value')
+    // .then((snap) => {
+    //   if(snap.val()){
+    //     this.bankAdded = snap.val();
+    //   }
+    // })
+    // .catch(e => {
+    //   console.log(e.message);
+    // });
 
-    db.database.ref('beneficiaries/'+this.user.uid)
-    .once('value')
-    .then((snap) => {
-      this.dbObj = snap.val();
-      this.accDeets.title = this.dbObj.title;
-      this.accDeets.initials = this.dbObj.initials;
-      this.accDeets.lname = this.dbObj.lname;
-      this.accDeets.bank = this.dbObj.bank;
-      this.accDeets.branchNo = this.dbObj.branchNo;
-      this.accDeets.accType = this.dbObj.accType;
-      this.accDeets.accNo = this.dbObj.accNo;
-    })
-    .catch(e => {
-      console.log(e.message);
-    });
+    this.dbObj = JSON.parse(sessionStorage.getItem('userBeneficiary'));
+    this.accDeets.title = this.dbObj.title;
+    this.accDeets.initials = this.dbObj.initials;
+    this.accDeets.lname = this.dbObj.lname;
+    this.accDeets.bank = this.dbObj.bank;
+    this.accDeets.branchNo = this.dbObj.branchNo;
+    this.accDeets.accType = this.dbObj.accType;
+    this.accDeets.accNo = this.dbObj.accNo;
+    // db.database.ref('beneficiaries/'+this.user.uid)
+    // .once('value')
+    // .then((snap) => {
+    //   this.dbObj = snap.val();
+    //   this.accDeets.title = this.dbObj.title;
+    //   this.accDeets.initials = this.dbObj.initials;
+    //   this.accDeets.lname = this.dbObj.lname;
+    //   this.accDeets.bank = this.dbObj.bank;
+    //   this.accDeets.branchNo = this.dbObj.branchNo;
+    //   this.accDeets.accType = this.dbObj.accType;
+    //   this.accDeets.accNo = this.dbObj.accNo;
+    // })
+    // .catch(e => {
+    //   console.log(e.message);
+    // });
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
 }

@@ -11,11 +11,12 @@ import { CommonPropertiesService } from '../common-properties.service';
   styleUrls: ['./profile.component.css'],
 })
 export class ProfileComponent implements OnInit {
-  userName: string;
-  lastName: string;
-  firstName: string;
-  eMail: string;
-  phoneN: string;
+  private userName: string;
+  private lastName: string;
+  private firstName: string;
+  private eMail: string;
+  private phoneN: string;
+  private userdata: any;
 
   constructor(private afAuth: AngularFireAuth,
               private afDB: AngularFireDatabase,
@@ -28,23 +29,30 @@ export class ProfileComponent implements OnInit {
     //   this.eMail = this.appProps.userDBentry.udata.email;
     //   this.phoneN = this.appProps.userDBentry.udata.mobile;
     
-    this.afAuth.authState.subscribe(e => {
-      if(e != null) {
-        this.afDB.database.ref('/users/'+e.uid)
-        .child('udata')
-        .once('value')
-        .then(snap => {
-          this.userName = snap.val().uname;
-          this.firstName = snap.val().fname;
-          this.lastName = snap.val().lname;
-          this.eMail = snap.val().email;
-          this.phoneN = snap.val().mobile;
-        })
-        .catch(e => {
-          console.log(e.message);
-        });
-      }
-    });
+    this.userdata = JSON.parse(sessionStorage.getItem('userDBentry'));
+    this.userName = this.userdata.udata.uname;
+    this.firstName = this.userdata.udata.fname;
+    this.lastName = this.userdata.udata.lname;
+    this.eMail = this.userdata.udata.email;
+    this.phoneN = this.userdata.udata.mobile;
+
+    // this.afAuth.authState.subscribe(e => {
+    //   if(e != null) {
+    //     this.afDB.database.ref('/users/'+e.uid)
+    //     .child('udata')
+    //     .once('value')
+    //     .then(snap => {
+    //       this.userName = snap.val().uname;
+    //       this.firstName = snap.val().fname;
+    //       this.lastName = snap.val().lname;
+    //       this.eMail = snap.val().email;
+    //       this.phoneN = snap.val().mobile;
+    //     })
+    //     .catch(e => {
+    //       console.log(e.message);
+    //     });
+    //   }
+    // });
   }
 
   // upateUID(){

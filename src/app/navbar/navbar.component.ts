@@ -68,20 +68,22 @@ export class NavbarComponent implements OnInit {
   }
 
   // Posts data to CommonProps service
-  storeSessData(data){
-    this.appProps.setUserId(data);
-  }
+  // storeSessData(data){
+  //   this.appProps.setUserId(data);
+  // }
 
   getUserData(e){
     this.afDB.database.ref('/users/'+e.uid)
     .once('value')
     .then(snap => {
       this.userName = snap.val().uname;
-      this.appProps.userid = e.uid;
-      this.appProps.userDBentry = snap.val();
+      sessionStorage.setItem('userid', e.uid);
+      sessionStorage.setItem('userDBentry', JSON.stringify(snap.val()));
+      // this.appProps.userid = e.uid;
+      // this.appProps.userDBentry = snap.val();
       // console.log(this.appProps.userDBentry);
-      // this.getTempPass(e);
-      // this.getBenifData(e);
+      this.getTempPass(e);
+      this.getBenifData(e);
       // this.storeSessData(e.uid);
     })
     .catch(e => {
@@ -94,7 +96,8 @@ export class NavbarComponent implements OnInit {
     .child('tempPassw')
     .once('value')
     .then(snap => {
-      this.appProps.userTempPass = snap.val();
+      sessionStorage.setItem('userTempPass', snap.val());
+      // this.appProps.userTempPass = snap.val();
     })
     .catch(e => {
       console.log(e.message);
@@ -105,7 +108,8 @@ export class NavbarComponent implements OnInit {
     this.afDB.database.ref('/beneficiaries/'+e.uid)
     .once('value')
     .then(snap => {
-      this.appProps.userBeneficiary = snap.val();
+      sessionStorage.setItem('userBeneficiary', JSON.stringify(snap.val()));
+      // this.appProps.userBeneficiary = snap.val();
     })
     .catch(e => {
       console.log(e.message);
