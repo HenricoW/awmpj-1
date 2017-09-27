@@ -17,9 +17,16 @@ export class CommonPropertiesService {
   useridString$ = this.useridSource.asObservable();
 
   // Service command
-  setUserId(data: string){ 
+  setUserId(data: string): void { 
     this.useridSource.next(data);
     console.log('setting userid in service');
+  }
+
+  // utility function(s)
+  convertToDate(msEpoch: number): string {
+    var d = new Date(0);
+    d.setUTCMilliseconds(msEpoch);
+    return d.toLocaleString();
   }
   
 }
