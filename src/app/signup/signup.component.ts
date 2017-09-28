@@ -27,7 +27,6 @@ export class SignupComponent implements OnInit {
   
   private model = new User('','','','',null,'','','','','');
   private userjs: any;
-  private signupError: boolean;
   private authState: any = null;
   private signUpDateTime = Date.now();
   private userid: string = null;
@@ -54,40 +53,38 @@ export class SignupComponent implements OnInit {
               ){
     this.afAuth.authState.subscribe((auth) => {
       if(auth) {
-        if(!this.userid){this.userid = auth.uid;} else {return;}
+        // if(!this.userid){this.userid = auth.uid;} else {return;}
+        if(auth.uid) { this.router.navigate(['dashboard']); return; }
 
         // after account successfully created, upload user data + new uid to db
-        if(true /*!this.signupError*/){
-          // convert data to json
-          this.userjs = this.userToObj(this.model);
-          // publish to users db
-          this.db.database.ref('/users')
-          .child(auth.uid)
-          .set(this.userjs)
-          // this.db.list('/users').push(this.userjs)
-          .catch(e => {
-            console.log(e.message);
-          });
+        // convert data to required json tree
+        this.userjs = this.userToObj(this.model);
+        // publish to user json to db
+        this.db.database.ref('/users')
+        .child(auth.uid)
+        .set(this.userjs)
+        .catch(e => {
+          console.log(e.message);
+        });
 
-          // publish to registration que db
-          this.db.database.ref('/bccRegQue')
-          // .child(this.signUpDateTime.toString())
-          .child(auth.uid)
-          .set({
-            "fname": this.model.fname,
-            "lname": this.model.lname,
-            "uname": this.model.uname,
-            "email": this.model.email,
-            "mobile": this.model.mobile,
-            "dobD": this.mydate.date.day.toString(),
-            "dobM": this.mydate.date.month.toString(),
-            "dobY": this.mydate.date.year.toString(),
-            "tempPassw": 'aPa55w0Rd'// DONE - IN CLOUD FUNCTION: generatePwdFcn()
-          })
-          .catch(e => {
-            console.log(e.message);
-          });
-        }
+        // publish to registration que db
+        this.db.database.ref('/bccRegQue')
+        .child(auth.uid)
+        .set({
+          "fname": this.model.fname,
+          "lname": this.model.lname,
+          "uname": this.model.uname,
+          "email": this.model.email,
+          "mobile": this.model.mobile,
+          "dobD": this.mydate.date.day.toString(),
+          "dobM": this.mydate.date.month.toString(),
+          "dobY": this.mydate.date.year.toString(),
+          "signupTS": this.signUpDateTime,
+          "tempPassw": 'aPa55w0Rd'// DONE - IN CLOUD FUNCTION: generatePwdFcn()
+        })
+        .catch(e => {
+          console.log(e.message);
+        });
       }
     });
 
