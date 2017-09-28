@@ -16,6 +16,7 @@ import { AccSetupComponent } from './acc-setup/acc-setup.component';
 import { AccountsComponent } from './accounts/accounts.component';
 import { AddAccountComponent } from './add-account/add-account.component';
 import { InvestingComponent } from './investing/investing.component';
+import { AdminComponent } from './admin/admin.component';
 
 const routes = [
     { path: '', component: HomeComponent },
@@ -30,6 +31,7 @@ const routes = [
     ]},
     { path: 'bccregister/:id', component: BccRegisterComponent },
     { path: 'investing', component: InvestingComponent },
+    { path: 'admin', component: AdminComponent },
     { path: '**', component: HomeComponent },
 ];
 

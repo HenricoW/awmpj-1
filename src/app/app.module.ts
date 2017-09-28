@@ -34,6 +34,7 @@ import { AddAccountComponent } from './add-account/add-account.component';
 
 import { CommonPropertiesService } from './common-properties.service';
 import { InvestingComponent } from './investing/investing.component';
+import { AdminComponent } from './admin/admin.component';
 
 @NgModule({
   declarations: [
@@ -53,6 +54,7 @@ import { InvestingComponent } from './investing/investing.component';
     AccountsComponent,
     AddAccountComponent,
     InvestingComponent,
+    AdminComponent,
   ],
   imports: [
     BrowserModule,
