@@ -40,14 +40,15 @@ export class AccSetupComponent implements OnInit {
           }
         })
 
-        this.afDB.database.ref('/users/'+this.uid)
-          .child('udata')
-          .child('tempPassw')
-          .once('value')
-          .then((snap) => {
-            // console.log(snap.val())
-            this.pass = snap.val();
-        });
+        this.pass = sessionStorage.getItem('userTempPass');
+        // this.afDB.database.ref('/users/'+this.uid)
+        //   .child('udata')
+        //   .child('tempPassw')
+        //   .once('value')
+        //   .then((snap) => {
+        //     // console.log(snap.val())
+        //     this.pass = snap.val();
+        // });
       } else {
         this.pass = '';
       }
