@@ -26,7 +26,7 @@ const mailTransport = nodemailer.createTransport(`smtps://${gmailEmail}:${gmailP
 
 
 // Your company name to include in the emails
-// TODO: Change this to your app or company name to customize the email sent.
+// TODO: Change this to the app or company name to customize the email sent.
 const APP_NAME = 'Nuvest';
 const  REG_URL = 'http://localhost:4200';
 // const  REG_URL = 'http://localhost:4200/bccregister/4QbH5CzNedc76oHj4PsoNLzih8N2';
@@ -150,6 +150,14 @@ exports.sendNewUserEmail = functions.database
     return sendNewUserEmail(this.fname, this.lname, this.uname, this.email, this.phone);
   });
 
+
+
+
+
+
+
+
+// generate unique user temporary password
 exports.createTempPassw = functions.database
   .ref('/users/{pushId}')
   .onCreate(e => {
@@ -159,8 +167,34 @@ exports.createTempPassw = functions.database
     this.pass = generator.generate({length: 10, numbers: true});
     console.log(this.pass);
 
+    // call function to update bccRegQue pass entry
+    copyTempPass(this.pass, this.userid);
+
     return e.data.ref.child('udata').child('tempPassw').set(this.pass);
   });
+
+// // copy temp password from users db to bccRegQue
+// exports.copyTempPass = functions.database
+// .ref('/bccRegQue/{pushId}/tempPassw')
+// .onUpdate(e => {
+//   console.log('copying the password');
+
+//   return e.data
+// });
+
+// generate unique deposit reference to link to user
+exports.createDepRef = functions.database
+  .ref('/users/{pushId}')
+  .onCreate(e => {
+    console.log('Generating deposit reference');
+    console.log(e.eventType);
+    // var depRef = generator.generate({length: 7, numbers: true, uppercase: true, excludeSimilarCharacters: true});
+    var depRef = generator.generate({length: 7, numbers: true, uppercase: true});
+    console.log(depRef);
+
+    return e.data.ref.child('udata').child('depRef').set(depRef);
+  });
+
 /**
  * Sends a welcome email to new user.
  */
@@ -177,28 +211,42 @@ exports.createTempPassw = functions.database
 //     return sendUserActivationMail(this.uname, this.email);
 // });
 
+// update password on bccRegQue db
+function copyTempPass(pass, pushId){
+  // var userRef = functions.database.ref('/users/')
+  // .onUpdate(e => {
+    
+  // })
+
+  admin.database().ref('bccRegQue/'+pushId+'/tempPassw')
+  .set(pass)
+  .then(e => {
+    console.log('temp passw has been copied');
+  })
+  .catch(e => {
+    console.log(e.message);
+  });  
+}
+
 // Sends admin an email about user signup.
 function sendNewUserEmail(fname, lname, uname, email, phone) {
-    const mailOptions = {
-        from: `${APP_NAME} <noreply@nuvest.co.za>`,
-        to: destEmail
-    };
+  const mailOptions = {
+    from: `${APP_NAME} <noreply@nuvest.co.za>`,
+    to: destEmail
+  };
 
-    mailOptions.subject = `New user on ${APP_NAME}!`;
-    mailOptions.html = 
+  mailOptions.subject = `New user on ${APP_NAME}!`;
+  mailOptions.html = 
     `<h3 style="text-align: center;">New user signed up and has been qued on the bcc register dataabase</h3>
     <table><tr><td>Name:</td><td>${fname}</td></tr>
     <tr><td>Surname:</td><td>${lname}</td></tr>
     <tr><td>User name:</td><td>${uname}</td></tr>
     <tr><td>e-mail:</td><td>${email}</td></tr>
     <tr><td>phone:</td><td>${phone}</td></tr></table>`
-    
-    return mailTransport.sendMail(mailOptions).then(() => {
-        console.log('Email sent to admin:', destEmail);
-    });
-    // .catch((err) => {
-    //   console.log(err);
-    // });
+  
+  return mailTransport.sendMail(mailOptions).then(() => {
+    console.log('Email sent to admin:', destEmail);
+  });
 }
 
 // Sends a welcome email to the given user.
@@ -224,12 +272,6 @@ function sendUserActivationMail(uname, email){
       console.log('New welcome email sent to:', email);
   });
 }
-
-// const theHtml = `<table><tr><td>Name:</td><td>${fname}</td></tr>
-// <tr><td>Surname:</td><td>${lname}</td></tr>
-// <tr><td>User name:</td><td>${uname}</td></tr>
-// <tr><td>e-mail:</td><td>${email}</td></tr>
-// <tr><td>phone:</td><td>${phone}</td></tr></table>`;
 
 function processHtml(uname, password){
   return `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional //EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--[if IE]><html xmlns="http://www.w3.org/1999/xhtml" class="ie"><![endif]--><!--[if !IE]><!--><html style="margin: 0;padding: 0;" xmlns="http://www.w3.org/1999/xhtml"><!--<![endif]--><head>
