@@ -12,7 +12,7 @@
             </div>
           </div>
           <div class="form-group">
-            <input placeholder="Last Name" type="text" class="form-control" id="lname" required pattern="[a-zA-Z][a-zA-Z]+" [(ngModel)]="model.lname" name="lname" #lname="ngModel">
+            <input placeholder="Last Name" type="text" class="form-control" id="lname" required pattern="[a-zA-Z][a-zA-Z -]+" [(ngModel)]="model.lname" name="lname" #lname="ngModel">
             <div [hidden]="lname.valid || lname.pristine" class="alert alert-danger">
               <div [hidden]="!lname.hasError('required')">Last name is required</div>
               <div [hidden]="!lname.hasError('pattern')">Only alphabet characters, 2 or more allowed</div>
