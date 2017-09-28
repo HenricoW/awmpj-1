@@ -57,7 +57,7 @@ export class AddAccountComponent implements OnInit {
     };
   }
 
-  onSubmit(){
+  onSubmit():void {
     this.accObj = this.accToObj(this.accDeets);
 
     this.db.database.ref('/beneficiaries')

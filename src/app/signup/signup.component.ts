@@ -10,12 +10,12 @@ import { AngularFireDatabaseModule, AngularFireDatabase, FirebaseListObservable 
 import * as firebase from 'firebase/app';
 import { firebaseConfig } from '../../assets/fbConfig';
 import * as $ from 'jquery';
+import { IMyDpOptions, IMyInputFocusBlur } from 'mydatepicker';
 // import { DatePickerOptions, DateModel } from 'ng2-datepicker';        // DID NOT WORK
 // import { NKDatetime } from 'ng2-datetime/ng2-datetime';               // DID NOT WORK
-import { IMyDpOptions, IMyInputFocusBlur } from 'mydatepicker';
 
 // custom imports
-import { User }    from '../../assets/User';
+import { User } from '../../assets/User';
 
 @Component({
   selector: 'app-signup',
@@ -37,7 +37,7 @@ export class SignupComponent implements OnInit {
   private passMinLen: number = 6;
 
   // datepicker configuration
-  private mydate = { date: { year: 2007, month: 12, day: 31 } };
+  private mydate = { date: { year: 2007, month: 12, day: 31 } };      // default date and latest valid date
   private myDatePickerOptions: IMyDpOptions = {
     dateFormat: 'dd mm yyyy',
     maxYear: 2007,
@@ -52,18 +52,15 @@ export class SignupComponent implements OnInit {
               private afAuth: AngularFireAuth,
               private db: AngularFireDatabase
               ){
-    // this.date = new Date();
     this.afAuth.authState.subscribe((auth) => {
       if(auth) {
-        // console.log(auth.uid);
         if(!this.userid){this.userid = auth.uid;} else {return;}
 
         // after account successfully created, upload user data + new uid to db
         if(true /*!this.signupError*/){
           // convert data to json
           this.userjs = this.userToObj(this.model);
-          console.log(this.userjs);
-          // publish to db
+          // publish to users db
           this.db.database.ref('/users')
           .child(auth.uid)
           .set(this.userjs)
@@ -71,6 +68,8 @@ export class SignupComponent implements OnInit {
           .catch(e => {
             console.log(e.message);
           });
+
+          // publish to registration que db
           this.db.database.ref('/bccRegQue')
           // .child(this.signUpDateTime.toString())
           .child(auth.uid)
@@ -83,7 +82,7 @@ export class SignupComponent implements OnInit {
             "dobD": this.mydate.date.day.toString(),
             "dobM": this.mydate.date.month.toString(),
             "dobY": this.mydate.date.year.toString(),
-            "tempPassw": 'aPa55w0Rd'// TODO: generatePwdFcn()
+            "tempPassw": 'aPa55w0Rd'// DONE - IN CLOUD FUNCTION: generatePwdFcn()
           })
           .catch(e => {
             console.log(e.message);
@@ -130,7 +129,7 @@ export class SignupComponent implements OnInit {
         "dobD": this.mydate.date.day.toString(),
         "dobM": this.mydate.date.month.toString(),
         "dobY": this.mydate.date.year.toString(),
-        "tempPassw": 'aPa55w0Rd'// TODO: generatePwdFcn()
+        "tempPassw": 'aPa55w0Rd'// DONE - IN CLOUD FUNCTION:: generatePwdFcn()
       },
       "umeta": {
         "signupTS": this.signUpDateTime,
@@ -143,21 +142,6 @@ export class SignupComponent implements OnInit {
       }
     };
   }
-
-  // onDateFocusBlur(event: IMyInputFocusBlur): void {
-  //   console.log('onInputFocusBlur(): Reason: ', event.reason, ' - Value: ', event.value);
-  //   if(event.reason == 2) {
-  //     if(this.mydate.date.day == 0 && this.mydate.date.month == 0 && this.mydate.date.year == 1975){
-  //       this.fireDateRequired = true;
-  //       this.formValid = false;
-  //     } else {
-  //       this.fireDateRequired = false;
-  //       this.formValid = true;
-  //     }
-  //   } else {
-  //     this.fireDateRequired = false;
-  //   }
-  // }
 
   onDateChange(event: IMyInputFocusBlur): void {
     this.formValid = true;
