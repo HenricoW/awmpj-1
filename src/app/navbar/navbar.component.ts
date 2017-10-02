@@ -81,7 +81,7 @@ export class NavbarComponent implements OnInit {
       sessionStorage.setItem('userDBentry', JSON.stringify(snap.val()));
       // this.appProps.userid = e.uid;
       // this.appProps.userDBentry = snap.val();
-      // console.log(this.appProps.userDBentry);
+      // console.log(snap.val());
       this.getTempPass(e);
       this.getBenifData(e);
       // this.storeSessData(e.uid);
