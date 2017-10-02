@@ -34,12 +34,13 @@ export class SignupComponent implements OnInit {
   private fireDateRequired: boolean = false;
   private formValid: boolean = false;
   private passMinLen: number = 6;
+  private latestYear: number = 2002;
 
   // datepicker configuration
-  private mydate = { date: { year: 2007, month: 12, day: 31 } };      // default date and latest valid date
+  private mydate = { date: { year: this.latestYear, month: 12, day: 31 } };      // default date and latest valid date
   private myDatePickerOptions: IMyDpOptions = {
     dateFormat: 'dd mm yyyy',
-    maxYear: 2007,
+    maxYear: this.latestYear,
     minYear: 1900,
     openSelectorTopOfInput: true,
     showSelectorArrow: false,
@@ -71,16 +72,10 @@ export class SignupComponent implements OnInit {
         this.db.database.ref('/bccRegQue')
         .child(auth.uid)
         .set({
-          "fname": this.model.fname,
-          "lname": this.model.lname,
-          "uname": this.model.uname,
-          "email": this.model.email,
-          "mobile": this.model.mobile,
-          "dobD": this.mydate.date.day.toString(),
-          "dobM": this.mydate.date.month.toString(),
-          "dobY": this.mydate.date.year.toString(),
-          "signupTS": this.signUpDateTime,
-          "tempPassw": 'aPa55w0Rd'// DONE - IN CLOUD FUNCTION: generatePwdFcn()
+          "fname": this.model.fname, "lname": this.model.lname, "uname": this.model.uname,
+          "email": this.model.email, "mobile": this.model.mobile, "dobD": this.mydate.date.day.toString(),
+          "dobM": this.mydate.date.month.toString(), "dobY": this.mydate.date.year.toString(),
+          "signupTS": this.signUpDateTime, "tempPassw": 'aPa55w0Rd'// DONE - IN CLOUD FUNCTION: generatePwdFcn()
         })
         .catch(e => {
           console.log(e.message);
@@ -119,10 +114,8 @@ export class SignupComponent implements OnInit {
       "uname": theUser.uname,
       "udata": {
         "uname": theUser.uname,     // duplicated in prep for de-normalization
-        "fname": theUser.fname,
-        "lname": theUser.lname,
-        "email": theUser.email,
-        "mobile": theUser.mobile,
+        "fname": theUser.fname, "lname": theUser.lname,
+        "email": theUser.email, "mobile": theUser.mobile,
         "dobD": this.mydate.date.day.toString(),
         "dobM": this.mydate.date.month.toString(),
         "dobY": this.mydate.date.year.toString(),
@@ -130,12 +123,8 @@ export class SignupComponent implements OnInit {
       },
       "umeta": {
         "signupTS": this.signUpDateTime,
-        "bccActive": false,
-        "bccPassChg": false,
-        "bcc2FA": false,
-        "bccCodeCard": false,
-        "bankAcc": false,
-        "bccAddressConfirmed": false,
+        "bccActive": false, "bccPassChg": false, "bcc2FA": false,
+        "bccCodeCard": false, "bankAcc": false, "bccAddressConfirmed": false,
       }
     };
   }
