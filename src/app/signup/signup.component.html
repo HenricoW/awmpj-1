@@ -19,12 +19,12 @@
             </div>
           </div> 
           <div class="form-group">
-              <input placeholder="User Name" type="text" class="form-control" id="uname" required pattern="[a-zA-Z0-9_]+" [(ngModel)]="model.uname" name="uname" #uname="ngModel">
-              <div [hidden]="uname.valid || uname.pristine" class="alert alert-danger">
-                <div [hidden]="!uname.hasError('required')">User name is required</div>
-                <div [hidden]="!uname.hasError('pattern')">Only one word, alphanumeric names allowed</div>
-              </div>
+            <input placeholder="User Name" type="text" class="form-control" id="uname" required pattern="[a-zA-Z0-9_]+" [(ngModel)]="model.uname" name="uname" #uname="ngModel">
+            <div [hidden]="uname.valid || uname.pristine" class="alert alert-danger">
+              <div [hidden]="!uname.hasError('required')">User name is required</div>
+              <div [hidden]="!uname.hasError('pattern')">Only one word, alphanumeric names allowed</div>
             </div>
+          </div>
           <div class="form-group">
             <input placeholder="Email Address" type="text" class="form-control" id="emailaddress" required pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" [(ngModel)]="model.email" name="email" #email="ngModel">
             <div [hidden]="email.valid || email.pristine"class="alert alert-danger">
