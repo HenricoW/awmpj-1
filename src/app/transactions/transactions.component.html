@@ -16,33 +16,38 @@
         <div class="card">
           <div class="card-block">
             <h3>Create a deposit</h3>
-            <form action="" (ngSubmit)="submitDeposit()"  #depositForm="ngForm">
-              <!-- <div class="lead pb-2">Deposit details</div> -->
-              <div class="form-group">
-                <label for="bank">Bank:</label>
-                <select class="form-control" id="bank" required [(ngModel)]="bankVal" name="bank" #bank="ngModel">
-                  <option value="Absa" selected="selected">Absa</option>
-                  <option value="FNB">FNB</option>
-                  <option value="Capitec">Capitec</option>
-                  <option value="StandardBank">Standard Bank</option>
-                  <option value="AfricanBank">African Bank</option>
-                  <option value="Investec">Investec</option>
-                  <option value="Sasfin">Sasfin</option>
-                  <option value="Bidvest">Bidvest</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <input placeholder="Amount ex.: 5000" type="text" class="form-control" id="amount" required pattern="[0-9]*" minlength="4" maxlength="6" [(ngModel)]="amountVal" name="amount" #amount="ngModel">
-                <div [hidden]="amount.valid || amount.pristine" class="alert alert-danger">
-                  <div [hidden]="!amount.hasError('required')">Amount required</div>
-                  <div [hidden]="!amount.hasError('minlength')">Four (4) digits or more</div>
-                  <div [hidden]="!amount.hasError('pattern')">Invalid amount</div>
+            <div *ngIf="canDeposit">
+              <form action="" (ngSubmit)="submitDeposit()"  #depositForm="ngForm">
+                <!-- <div class="lead pb-2">Deposit details</div> -->
+                <div class="form-group">
+                  <label for="bank">Bank:</label>
+                  <select class="form-control" id="bank" required [(ngModel)]="bankVal" name="bank" #bank="ngModel">
+                    <option value="Absa" selected="selected">Absa</option>
+                    <option value="FNB">FNB</option>
+                    <option value="Capitec">Capitec</option>
+                    <option value="StandardBank">Standard Bank</option>
+                    <option value="AfricanBank">African Bank</option>
+                    <option value="Investec">Investec</option>
+                    <option value="Sasfin">Sasfin</option>
+                    <option value="Bidvest">Bidvest</option>
+                  </select>
                 </div>
-              </div>
-              <p>Create a bank EFT. Use the following code as the REFERENCE:</p>
-              <button disabled="disabled" class="btn btn-lg btn-outline-primary mb-3">{{userDepRef}}</button>
-              <button type="submit" class="btn btn-success btn-block" [disabled]="!depositForm.form.valid">I have made the deposit</button>
-            </form>
+                <div class="form-group">
+                  <input placeholder="Amount ex.: 5000" type="text" class="form-control" id="amount" required pattern="[0-9]*" minlength="4" maxlength="6" [(ngModel)]="amountVal" name="amount" #amount="ngModel">
+                  <div [hidden]="amount.valid || amount.pristine" class="alert alert-danger">
+                    <div [hidden]="!amount.hasError('required')">Amount required</div>
+                    <div [hidden]="!amount.hasError('minlength')">Four (4) digits or more</div>
+                    <div [hidden]="!amount.hasError('pattern')">Invalid amount</div>
+                  </div>
+                </div>
+                <p>Create a bank EFT. Use the following code as the REFERENCE:</p>
+                <button disabled="disabled" class="btn btn-lg btn-outline-primary mb-3">{{userDepRef}}</button>
+                <button type="submit" class="btn btn-success btn-block" [disabled]="!depositForm.form.valid">I have made the deposit</button>
+              </form>
+            </div> <!-- ngIf canDep -->
+            <div class="py-5">
+              <p>First secure account, then add bcc address in order to make deposits</p>
+            </div>
           </div>
         </div>
       </div>
@@ -51,6 +56,9 @@
           <div class="card-block">
             <h3>Withdraw</h3>
             <p>To do a withdrawal, do the following two steps:</p>
+            <p>Secure account: {{bccSecure}}</p>
+            <p>bcc address: {{bccAddrAdded}}</p>
+            <p>bank account added: {{withdrawAcc}}</p>
             <p>
               1. Go to your BCC profile page and find your BCC address.
             </p>
@@ -77,13 +85,18 @@
               <div class="col-6 col-sm-3"><strong>Bank</strong></div>
               <div class="col-sm-2"><strong>Status</strong></div>
             </div>
-            <div class="row" *ngFor="let tx of txList">
-              <div class="col-12"><hr></div>
-              <div class="col-6 col-sm-3">{{tx.initTime}}</div>
-              <div class="col-6 col-sm-2">{{tx.amountZAR}}</div>
-              <div class="col-6 col-sm-2">{{tx.isDeposit}}</div>
-              <div class="col-6 col-sm-3">{{tx.localBank}}</div>
-              <div class="col-sm-2">{{tx.depConfirmed}}</div>
+            <div class="row justify-content-center" *ngIf="!anyTxns">
+              <h4 class="lead py-5 my-2">No transactions to show</h4>
+            </div>
+            <div *ngIf="anyTxns">
+              <div class="row" *ngFor="let tx of txList">
+                <div class="col-12"><hr></div>
+                <div class="col-6 col-sm-3">{{tx.initTime}}</div>
+                <div class="col-6 col-sm-2">{{tx.amountZAR}}</div>
+                <div class="col-6 col-sm-2">{{tx.isDeposit}}</div>
+                <div class="col-6 col-sm-3">{{tx.localBank}}</div>
+                <div class="col-sm-2">{{tx.depConfirmed}}</div>
+              </div>
             </div>
             <hr>
             <!-- <button (click)="getTxns()">Get txns</button> -->

@@ -23,6 +23,13 @@ export class TransactionsComponent implements OnInit {
   private txList: any[] = [];
   private userObj: any;
   private userDepRef: string;
+  private anyTxns: boolean = false;
+  private bccSecure: boolean = false;
+  private bccSecureCC: boolean = false;
+  private bccAddrAdded: boolean = false;
+  private withdrawAcc: boolean = false;
+  private canWithdraw: boolean = false;
+  private canDeposit: boolean = false;
 
   constructor(private db: AngularFireDatabase,
               private router: Router,
@@ -31,6 +38,17 @@ export class TransactionsComponent implements OnInit {
     this.userid = sessionStorage.getItem('userid');
     this.userObj = JSON.parse(sessionStorage.getItem('userDBentry'));
     this.userDepRef = this.userObj.udata.depRef;
+    
+    // secure for deposits
+    this.bccSecure = this.userObj.umeta.bccActive && this.userObj.umeta.bcc2FA && this.userObj.umeta.bccPassChg;
+    // secure for withdrawals
+    this.bccSecureCC = this.userObj.umeta.bccActive && this.userObj.umeta.bcc2FA && this.userObj.umeta.bccCodeCard && this.userObj.umeta.bccPassChg;
+    this.bccAddrAdded = this.userObj.umeta.bccAddressConfirmed;
+    this.withdrawAcc = this.userObj.umeta.bankAcc;
+
+    this.canDeposit = this.bccSecure && this.bccAddrAdded
+    this.canWithdraw = this.bccSecureCC && this.bccAddrAdded && this.withdrawAcc
+
     this.getTxns();
   }
 
@@ -63,26 +81,28 @@ export class TransactionsComponent implements OnInit {
     .equalTo(this.userid)
     .once('value')
     .then((snap) => {
-      snap.forEach(childSnap => {
-        // create temporary object
-        let dbTxObj;
-        // parse db data
-        let date: string = this.appProps.convertToDate(childSnap.val().initTime);
-        let txType: string = (childSnap.val().isDeposit == true) ? 'Deposit' : 'Withdrawal';
-        let txStatus: string = (childSnap.val().depConfirmed == true) ? 'Confirmed' : 'Pending';
+      if(snap.val()){
+        this.anyTxns = true;
+        // console.log(snap.val());
+        // console.log('anyTxns: '+this.anyTxns);
+        snap.forEach(childSnap => {
+          // create temporary object
+          let dbTxObj;
+          // parse db data
+          let date: string = this.appProps.convertToDate(childSnap.val().initTime);
+          let txType: string = (childSnap.val().isDeposit == true) ? 'Deposit' : 'Withdrawal';
+          let txStatus: string = (childSnap.val().depConfirmed == true) ? 'Confirmed' : 'Pending';
 
-        dbTxObj = {
-          initTime: date,
-          amountZAR: childSnap.val().amountZAR,
-          isDeposit: txType,
-          localBank: childSnap.val().localBank,
-          depConfirmed: txStatus
-        };
-        this.txList.push(dbTxObj);
-      })
-      // .catch(e => {
-      //   console.log(e.message);
-      // });
+          dbTxObj = {
+            initTime: date,
+            amountZAR: childSnap.val().amountZAR,
+            isDeposit: txType,
+            localBank: childSnap.val().localBank,
+            depConfirmed: txStatus
+          };
+          this.txList.push(dbTxObj);
+        });
+      }
     })
     .catch(e => {
       console.log(e.message);
