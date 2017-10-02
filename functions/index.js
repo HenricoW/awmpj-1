@@ -1,144 +1,76 @@
 'use strict';
-// The Cloud Functions for Firebase SDK to create Cloud Functions and setup triggers.
 const functions = require('firebase-functions');
 const nodemailer = require('nodemailer');
-const admin = require('firebase-admin');                // The Firebase Admin SDK to access the Firebase Realtime Database. 
+const admin = require('firebase-admin');                // Firebase Admin SDK to access Database. 
 const generator = require('generate-password');
 
 admin.initializeApp(functions.config().firebase);
-
-// Configure the email transport using the default SMTP transport and a GMail account.
-// For other types of transports such as Sendgrid see https://nodemailer.com/transports/
-// TODO: Configure the `gmail.email` and `gmail.password` Google Cloud environment variables.
+// CHANGE THIS: Configure the `gmail.email` and `gmail.password` Firebase Cloud environment variables.
 const gmailEmail = encodeURIComponent(functions.config().gmail.email);
 const gmailPassword = encodeURIComponent(functions.config().gmail.password);
 const mailTransport = nodemailer.createTransport(`smtps://${gmailEmail}:${gmailPassword}@smtp.gmail.com`);
 
-
-
-
-
-
-
-
-
-
-
-
-// Your company name to include in the emails
-// TODO: Change this to the app or company name to customize the email sent.
+// CHANGE THIS: Company name to include in the emails
 const APP_NAME = 'Nuvest';
 const  REG_URL = 'http://localhost:4200';
 // const  REG_URL = 'http://localhost:4200/bccregister/4QbH5CzNedc76oHj4PsoNLzih8N2';
 
-
-
-
-
-
-
-
-
-
-
 const destEmail = 'rico2chatter@gmail.com';
-const userdata = null;
-const fname = null;
-const lname = null;
-const uname = null;
-const email = null;
-const phone = null;
-const userid = null;
-const pass = null;
+const [userdata, fname, lname, uname] = [null, null, null, null];
+const [email, phone, userid, pass] = [null, null, null, null];
 
 
-
-
-
-
-
-
-
-
-var mssg2 = 'My name is Jeb... from secondCRONmail';
 /**
- * Sends admin first email: CRON.
+ * Sends admin an email about a new deposit.
  */
 exports.firstCronMail = functions.https
 .onRequest((req, resp) => {
-  var mssg = 'My name is Jeb...';
+  const subject = req.body.q;                                     // bank mail subject in POST query
+  // process text
+  const amount = subject.slice(8, subject.indexOf('paid')-1);
+  const refStart = subject.indexOf('Ref')+4;
+  const snip = subject.slice(refStart);
+  const depRef = snip.slice(0, snip.indexOf('.'));
+
+  // do db entry
+  admin.database().ref('/bankDeposits')
+  .push({
+    'amountRaw': amount,
+    'amount': +amount.slice(1),
+    'ref': depRef,
+    'TS': Date.now()
+  })
+  .catch( e => console.log(e.message) );
+
+  // notify admin of action
+  const mssg = `New deposit has been received:\nAmount: \t${amount}\nRefernce: \t${depRef}`;
   const mailOptions = {
     from: `${APP_NAME} <noreply@nuvest.co.za>`,
     to: destEmail,
-    subject: 'CRON 1',
+    subject: 'Deposit',
     text: mssg
   };
 
   mailTransport.sendMail(mailOptions)
   .then(() => {
-    console.log('Email sent to admin:', destEmail);
+    console.log('Deposit e-mail sent to admin:', destEmail);
     resp.send('Email sent');
-    return mssg = 'Yeah yeah niggah!';
+    // return mssg = '';                          // send to next callback
   })
-  .then((nuMssg) => {
-    console.log('This was done after the mail was sent');
-    const mailOptions2 = {
-      from: `${APP_NAME} <noreply@nuvest.co.za>`,
-      to: destEmail,
-      subject: 'CRON 2',
-      text: nuMssg
-    };
-    mailTransport.sendMail(mailOptions2).then(() => {
-      console.log('Email #2 sent to admin:', destEmail);
-      resp.send('Email #2 sent');
-    }).catch(err => {
-      console.log(err)
-    });
-  })
-  .catch(err => {
-    console.log(err);
-  });
-});
-
-/**
- * Sends admin second email: CRON.
- */
-exports.secondCronMail = functions.https
-.onRequest((req, resp) => {
-  const mailOptions = {
-    from: `${APP_NAME} <noreply@nuvest.co.za>`,
-    to: destEmail,
-    subject: 'CRON 2',
-    text: mssg2
-  };
-
-  mailTransport.sendMail(mailOptions).then(() => {
-    console.log('Email sent to admin:', destEmail);
-    resp.send('Email sent');
-  }).catch(err => {
-    res.send(err);
-  });
+  // could send email by appending .then() here and using mailTransport.sendmail()
+  // then use the mssg variable returned by the prev .then()
+  .catch( e => console.log(e.message) );
 });
 
 
 
-
-
-
-
-
-
-
-
 /**
- * Sends admin an email about new user.
+ * Sends admin an email about a new user.
  */
 exports.sendNewUserEmail = functions.database
   .ref('/users/{pushId}')
   .onCreate(e => {
-    console.log('User created');
-    console.log(e.data.val());
-    console.log(e.eventType);
+    console.log('User created'); console.log(e.data.val()); console.log(e.eventType);
     this.userid = e.params.pushId;
     this.userdata = e.data.val();
     this.fname = this.userdata.udata.fname;
@@ -150,50 +82,73 @@ exports.sendNewUserEmail = functions.database
     return sendNewUserEmail(this.fname, this.lname, this.uname, this.email, this.phone);
   });
 
+  
+// Sends admin an email about user signup.
+function sendNewUserEmail(fname, lname, uname, email, phone) {
+  const mailOptions = {
+    from: `${APP_NAME} <noreply@nuvest.co.za>`,
+    to: destEmail
+  };
+  mailOptions.subject = `New user on ${APP_NAME}!`;
+  mailOptions.html = 
+    `<h3 style="text-align: center;">New user signed up 
+    and has been qued on the bcc register dataabase</h3>
+    <table><tr><td>Name:</td><td>${fname}</td></tr>
+    <tr><td>Surname:</td><td>${lname}</td></tr>
+    <tr><td>User name:</td><td>${uname}</td></tr>
+    <tr><td>e-mail:</td><td>${email}</td></tr>
+    <tr><td>phone:</td><td>${phone}</td></tr></table>`
+  
+  return mailTransport.sendMail(mailOptions).then(() => {
+    console.log('Email sent to admin:', destEmail);
+  });
+}
 
 
 
-
-
-
-
-// generate unique user temporary password
+/**
+ * Generate unique user temporary password
+ */
 exports.createTempPassw = functions.database
   .ref('/users/{pushId}')
   .onCreate(e => {
-    console.log('Generating password');
-    console.log(e.eventType);
+    console.log('Generating password'); console.log(e.eventType);
     this.userid = e.params.pushId;
-    this.pass = generator.generate({length: 10, numbers: true});
+    this.pass = generator.generate({length: 15, numbers: true});
     console.log(this.pass);
 
     // call function to update bccRegQue pass entry
     copyTempPass(this.pass, this.userid);
 
+    // update db with password
     return e.data.ref.child('udata').child('tempPassw').set(this.pass);
   });
 
-// // copy temp password from users db to bccRegQue
-// exports.copyTempPass = functions.database
-// .ref('/bccRegQue/{pushId}/tempPassw')
-// .onUpdate(e => {
-//   console.log('copying the password');
+// copy password to bccRegQue db
+function copyTempPass(pass, pushId){
+  admin.database().ref('bccRegQue/'+pushId+'/tempPassw')
+  .set(pass)
+  .then( e => console.log('temp passw has been copied') )
+  .catch( e => console.log(e.message) );  
+}
 
-//   return e.data
-// });
 
-// generate unique deposit reference to link to user
+
+/**
+ * Generate unique deposit reference for new user
+ */
 exports.createDepRef = functions.database
   .ref('/users/{pushId}')
   .onCreate(e => {
     console.log('Generating deposit reference');
     console.log(e.eventType);
-    // var depRef = generator.generate({length: 7, numbers: true, uppercase: true, excludeSimilarCharacters: true});
     var depRef = generator.generate({length: 7, numbers: true, uppercase: true});
     console.log(depRef);
 
     return e.data.ref.child('udata').child('depRef').set(depRef);
   });
+
+
 
 /**
  * Sends a welcome email to new user.
@@ -211,68 +166,22 @@ exports.createDepRef = functions.database
 //     return sendUserActivationMail(this.uname, this.email);
 // });
 
-// update password on bccRegQue db
-function copyTempPass(pass, pushId){
-  // var userRef = functions.database.ref('/users/')
-  // .onUpdate(e => {
-    
-  // })
-
-  admin.database().ref('bccRegQue/'+pushId+'/tempPassw')
-  .set(pass)
-  .then(e => {
-    console.log('temp passw has been copied');
-  })
-  .catch(e => {
-    console.log(e.message);
-  });  
-}
-
-// Sends admin an email about user signup.
-function sendNewUserEmail(fname, lname, uname, email, phone) {
-  const mailOptions = {
-    from: `${APP_NAME} <noreply@nuvest.co.za>`,
-    to: destEmail
-  };
-
-  mailOptions.subject = `New user on ${APP_NAME}!`;
-  mailOptions.html = 
-    `<h3 style="text-align: center;">New user signed up and has been qued on the bcc register dataabase</h3>
-    <table><tr><td>Name:</td><td>${fname}</td></tr>
-    <tr><td>Surname:</td><td>${lname}</td></tr>
-    <tr><td>User name:</td><td>${uname}</td></tr>
-    <tr><td>e-mail:</td><td>${email}</td></tr>
-    <tr><td>phone:</td><td>${phone}</td></tr></table>`
-  
-  return mailTransport.sendMail(mailOptions).then(() => {
-    console.log('Email sent to admin:', destEmail);
-  });
-}
-
 // Sends a welcome email to the given user.
 function sendUserActivationMail(uname, email){
   const mailOptions = {
     from: `${APP_NAME} <noreply@nuvest.co.za>`,
     to: email
   };
-
-  const password = "ja9rqirajDAFASjfa0uf0";
-  
-  // The user subscribed to the newsletter.
+  const password = "ja9rqirajDAFASjfa0uf0";                 // TODO: eliminate. Handled on site
   mailOptions.subject = `Welcome to ${APP_NAME}!`;
-  mailOptions.html = processHtml(uname, password);
-  // `<div style="text-align: center;">Hi there ${uname}! Welcome to ${APP_NAME}. You have successfully started your journey into
-  // the world of making money through revolutionary technologies.</div>
-  // <br>
-  // <div style="text-align: center;">Soon we will be sending you more information on the first steps 
-  // to start your journey.
-  // </div>
-  // <button>Log In</button>`
+  mailOptions.html = processHtml(uname, password);          // TODO: take out password
+
   return mailTransport.sendMail(mailOptions).then(() => {
       console.log('New welcome email sent to:', email);
   });
 }
 
+// html of email to be sent. Keep this at the end of the file, because it's huge
 function processHtml(uname, password){
   return `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional //EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--[if IE]><html xmlns="http://www.w3.org/1999/xhtml" class="ie"><![endif]--><!--[if !IE]><!--><html style="margin: 0;padding: 0;" xmlns="http://www.w3.org/1999/xhtml"><!--<![endif]--><head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
