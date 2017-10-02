@@ -22,8 +22,6 @@ export class AccountsComponent implements OnInit {
   
   constructor(private afAuth: AngularFireAuth,
               private db: AngularFireDatabase){
-    this.user = afAuth.auth.currentUser;
-
     this.userdata = JSON.parse(sessionStorage.getItem('userDBentry'))
     this.bankAdded = this.userdata.umeta.bankAcc;
     // db.database.ref('users/'+this.user.uid+'/umeta')
@@ -38,14 +36,16 @@ export class AccountsComponent implements OnInit {
     //   console.log(e.message);
     // });
 
-    this.dbObj = JSON.parse(sessionStorage.getItem('userBeneficiary'));
-    this.accDeets.title = this.dbObj.title;
-    this.accDeets.initials = this.dbObj.initials;
-    this.accDeets.lname = this.dbObj.lname;
-    this.accDeets.bank = this.dbObj.bank;
-    this.accDeets.branchNo = this.dbObj.branchNo;
-    this.accDeets.accType = this.dbObj.accType;
-    this.accDeets.accNo = this.dbObj.accNo;
+    if(this.bankAdded){
+      this.dbObj = JSON.parse(sessionStorage.getItem('userBeneficiary'));
+      this.accDeets.title = this.dbObj.title;
+      this.accDeets.initials = this.dbObj.initials;
+      this.accDeets.lname = this.dbObj.lname;
+      this.accDeets.bank = this.dbObj.bank;
+      this.accDeets.branchNo = this.dbObj.branchNo;
+      this.accDeets.accType = this.dbObj.accType;
+      this.accDeets.accNo = this.dbObj.accNo;
+    }
     // db.database.ref('beneficiaries/'+this.user.uid)
     // .once('value')
     // .then((snap) => {
