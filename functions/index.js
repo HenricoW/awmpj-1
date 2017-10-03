@@ -142,7 +142,7 @@ exports.createDepRef = functions.database
   .onCreate(e => {
     console.log('Generating deposit reference');
     console.log(e.eventType);
-    var depRef = generator.generate({length: 7, numbers: true, uppercase: true});
+    var depRef = generator.generate({length: 7, numbers: true, upperCase: true});
     console.log(depRef);
 
     return e.data.ref.child('udata').child('depRef').set(depRef);
