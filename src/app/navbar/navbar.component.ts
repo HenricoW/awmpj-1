@@ -63,6 +63,12 @@ export class NavbarComponent implements OnInit {
       if(e) alert('There was a problem logging out. Please try again.');
     });
 
+    // clear session storage
+    sessionStorage.setItem('userid', null);
+    sessionStorage.setItem('userDBentry', null);
+    sessionStorage.setItem('userTempPass', null);
+    sessionStorage.setItem('userBeneficiary', null);
+
     this.loggedin = false; this.email = ''; this.pass = ''; this.userName = '';
     // console.log('user logged out');
   }
