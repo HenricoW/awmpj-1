@@ -46,7 +46,7 @@
               </form>
             </div> <!-- ngIf canDep -->
             <div class="py-5">
-              <p>First secure account, then add bcc address in order to make deposits</p>
+              <p>First secure your account, then add your bcc address in order to make deposits.</p>
             </div>
           </div>
         </div>
@@ -55,21 +55,26 @@
         <div class="card">
           <div class="card-block">
             <h3>Withdraw</h3>
-            <p>To do a withdrawal, do the following two steps:</p>
-            <p>Secure account: {{bccSecure}}</p>
-            <p>bcc address: {{bccAddrAdded}}</p>
-            <p>bank account added: {{withdrawAcc}}</p>
-            <p>
-              1. Go to your BCC profile page and find your BCC address.
-            </p>
-            <p>
-              2. Register your BCC address by coming back to this site and paste the address under account settings
-              (You will then be able to send BCC to the address below and we will know it came from you).
-            </p>
-            <p>
-              After registering your BCC address with this website and before you send BCC to us, come to this page 
-              and fill out a withdrawal form. This will let us know to expect your BCC coming in.
-            </p>
+            <div *ngIf="canWithdraw">
+              <p>To do a withdrawal, do the following two steps:</p>
+              <p>Secure account: {{bccSecure}}</p>
+              <p>bcc address: {{bccAddrAdded}}</p>
+              <p>bank account added: {{withdrawAcc}}</p>
+              <p>
+                1. Go to your BCC profile page and find your BCC address.
+              </p>
+              <p>
+                2. Register your BCC address by coming back to this site and paste the address under account settings
+                (You will then be able to send BCC to the address below and we will know it came from you).
+              </p>
+              <p>
+                After registering your BCC address with this website and before you send BCC to us, come to this page 
+                and fill out a withdrawal form. This will let us know to expect your BCC coming in.
+              </p>
+            </div>
+            <div class="py-5" *ngIf="!canWithdraw">
+              <p>First secure your account, then add your bcc address and bank account in order to make withdrawals.</p>
+            </div>
           </div>
         </div>
       </div>
@@ -105,6 +110,18 @@
       </div>
     </div>
     <!-- <h1>Transaction works</h1> -->
-    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aut, possimus eos vitae dolores at incidunt nulla iste vero consequuntur, accusantium dolor explicabo itaque harum eveniet quis inventore ipsa necessitatibus, soluta accusamus illum eius molestias enim? Voluptatum accusamus explicabo quasi quod ducimus aspernatur sequi, eos sit quam cumque at distinctio perferendis!</p>
+    <p class="py-3 px-5" style="background-color: rgba(0,0,0,0.8);">Please note: deposits and 
+      withdrawals made on this page are only preparations for the actual deposit 
+      or withdrawal. Create a deposit on this page before you send money. In this way, we know 
+      to expect a payment from you and how much that payment should be. Also, we will know to 
+      link the funds to your bcc account if you use the correct deposit reference. 
+      Withdrawals with bcc addresses are dealt with in the same way.
+
+      <!-- Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aut, possimus eos vitae dolores 
+      at incidunt nulla iste vero consequuntur, accusantium dolor explicabo itaque harum eveniet 
+      quis inventore ipsa necessitatibus, soluta accusamus illum eius molestias enim? Voluptatum 
+      accusamus explicabo quasi quod ducimus aspernatur sequi, eos sit quam cumque at distinctio 
+      perferendis! -->
+    </p>
   </div>
 </div>
