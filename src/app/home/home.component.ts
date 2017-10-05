@@ -22,6 +22,12 @@ export class HomeComponent implements OnInit {
   private rateDates: string[] = [];
   private displayChart: boolean = false;
   private noChartDays: number = 31;
+  private coinSupp: string;
+  private coinPrice: string;
+  private marketCap: string;
+  private respJson: Promise<any>;
+
+  private url: string = 'https://api.coinmarketcap.com/v1/ticker/bitconnect/';
 
   // bar chart properties
   public barChartOptions:any = {
@@ -37,7 +43,6 @@ export class HomeComponent implements OnInit {
   ];
   public barChartType:string = 'bar';
   public barChartLegend:boolean = true;
- 
   public barChartData:any[] = [
     {data: this.randomArray(this.noChartDays, 20, 5) , label: 'Daily Returns (%)'},
   ];
@@ -51,6 +56,32 @@ export class HomeComponent implements OnInit {
       // for registration button
       this.loggedin = (e != null) ? true : false;
     });
+
+    // fetch(this.url)
+    // .then(resp => {
+    //   this.respJson = resp.json();
+    //   console.log(this.respJson);
+    // })
+    // .catch(e => {
+    //   console.log(e);
+    // })
+
+    fetch(this.url)
+    .then(resp => resp.json())
+    .then(data => {
+      var cmcResp = data[0];
+      this.coinSupp = cmcResp.available_supply;
+      this.coinPrice = cmcResp.price_usd;
+      this.marketCap = cmcResp.market_cap_usd;
+      // console.log(this.marketCap);
+    })
+    .catch(e => {
+      console.log(e);
+    })
+
+    // this.respJson.then(data => {
+    //   console.log(data);
+    // })
   }
 
   private pullRateData(ratesObj):void {
