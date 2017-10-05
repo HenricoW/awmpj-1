@@ -21,7 +21,7 @@
         <button class="btn btn-md btn-outline-success" [routerLink]="['/signup']" *ngIf="!loggedin">Sign Up</button>
       </li>
       <li class="nav-item">
-        <a class="nav-link ml-4 lead" [routerLink]="['/dashboard']" *ngIf="loggedin">Dashboard</a>
+        <a class="nav-link ml-4 lead" [routerLink]="['/dashboard', {outlets: {'dashoutlet': ['profile']}}]" *ngIf="loggedin">Dashboard</a>
       </li>
       <!-- <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
