@@ -12,10 +12,20 @@ table {
     margin: 0 auto;
 }
 
-.card-block a {
+/* .card-block a {
     color: darkslategrey;
+} */
+
+/* a {
+    color: lightsteelblue;
+    color: black;
+} */
+
+.vert-align {
+    display: flex;
+    align-items: center;
 }
 
-a {
-    color: lightsteelblue;
+.image-section {
+    max-width: 250px;
 }
