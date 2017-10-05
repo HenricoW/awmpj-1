@@ -22,6 +22,7 @@ export class AccSetupComponent implements OnInit {
   private userObj: any;
   private pass: string;
   private model: any = {'bccAddress': ''};
+  private formValid: boolean = false;
 
   constructor(private afAuth: AngularFireAuth,
               private afDB: AngularFireDatabase,
@@ -33,10 +34,17 @@ export class AccSetupComponent implements OnInit {
     this.codeCard = this.userDB.umeta.bccCodeCard;
     this.bccAddrAdded = this.userDB.umeta.bccAddressConfirmed;
   
-    this.pass = sessionStorage.getItem('userTempPass');
+    // this.pass = sessionStorage.getItem('userTempPass');
     this.uid = sessionStorage.getItem('userid');
     this.userObj = JSON.parse(sessionStorage.getItem('userDBentry'));
     this.updateUserMeta(this.uid)
+
+    // get updated temp password
+    this.afDB.database.ref('/users/'+this.uid+'/udata/tempPassw')
+    .once('value', e => {
+      this.pass = e.val();
+      sessionStorage.setItem('userDBentry', this.pass);
+    })
     
     // this.afAuth.authState.subscribe(e => {
     //   if(e != null) {
@@ -66,6 +74,10 @@ export class AccSetupComponent implements OnInit {
     this.checkDone();
 
     // console.log(this.userDB.umeta);
+  }
+
+  checkAddr(){
+    this.formValid = (this.model.bccAddress == '') ? false : true
   }
 
   updateUserMeta(uid){
