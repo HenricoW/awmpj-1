@@ -55,7 +55,7 @@ export class SignupComponent implements OnInit {
     this.afAuth.authState.subscribe((auth) => {
       if(auth) {
         // if(!this.userid){this.userid = auth.uid;} else {return;}
-        if(auth.uid) { this.router.navigate(['dashboard']); return; }
+        if(auth.uid) { this.router.navigate(['dashboard']) }
 
         // after account successfully created, upload user data + new uid to db
         // convert data to required json tree

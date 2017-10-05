@@ -60,7 +60,7 @@
               <div [hidden]="!mydate.hasError('required')">DOB is required</div>
             </div> -->
           </div>
-          <div class="alert alert-danger" *ngIf="fireDateRequired">That date will not do</div>
+          <div class="alert alert-danger" *ngIf="fireDateRequired">That date will not do</div> 
           <button type="submit" class="btn btn-success btn-block" [disabled]="!loginForm.form.valid || !formValid">Submit</button>
         </form>
       </div>
