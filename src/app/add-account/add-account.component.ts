@@ -24,6 +24,7 @@ export class AddAccountComponent implements OnInit {
   private accDeets = new BankAcc('','','','','',null,null);
   private accObj: object;
   private user: firebase.User;
+  private userDB: any;
 
   constructor(private router: Router,
               private afAuth: AngularFireAuth,
@@ -40,6 +41,8 @@ export class AddAccountComponent implements OnInit {
     .catch(e => {
       console.log(e.message);
     });
+
+    this.userDB = JSON.parse(sessionStorage.getItem('userDBentry'));
   }
 
   ngOnInit() {}
@@ -76,6 +79,20 @@ export class AddAccountComponent implements OnInit {
     .set(true)
     .then(() => {
       console.log('updated user meta');
+
+      // var benif = sessionStorage.getItem('userBeneficiary');
+      // console.log('benificiary data before:');
+      // console.log(benif);
+      
+      this.userDB.umeta.bankAcc = true;
+      sessionStorage.setItem('userDBentry', JSON.stringify(this.userDB));
+      sessionStorage.setItem('userBeneficiary', JSON.stringify(this.accObj));
+      // console.log(this.userDB);
+      
+      // var benif = sessionStorage.getItem('userBeneficiary');
+      // console.log('benificiary data after:');
+      // console.log(benif);
+      
       this.router.navigate(['dashboard', {outlets: {'dashoutlet': ['accounts']}}])
     })
     .catch(e => {
