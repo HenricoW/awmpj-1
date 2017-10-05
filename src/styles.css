@@ -39,7 +39,7 @@ body {
 .site-wrapper-inner {
   /* display: table-cell; */
   margin-top: 50px;
-  padding-top: 150px;
+  padding-top: 100px;
   padding-bottom: 50px;
   height: 110%;
   vertical-align: top;
@@ -47,6 +47,7 @@ body {
 .cover-container {
   margin-right: auto;
   margin-left: auto;
+  padding-bottom: 50px;
 }
 /* Padding for spacing */
 .inner {
@@ -134,4 +135,25 @@ body {
   .masthead, .mastfoot, .cover-container {
     width: 42rem;
   }
+}
+
+/*
+ * Custom stylezz
+ */
+
+#dark-bg {
+  background-color: rgba(0,0,0,0.4);
+}
+
+#light-bg {
+  background-color: rgba(255, 255, 255, 0.95);
+  color: black;
+}
+
+#light-bg a {
+  color: black;
+}
+
+#dark-bg a {
+  color: white;
 }
