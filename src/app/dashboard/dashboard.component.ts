@@ -18,7 +18,7 @@ import { firebaseConfig } from '../../assets/fbConfig';
 
 export class DashboardComponent implements OnInit {
 
-  private displayMenu: boolean = false;
+  private displayMenu: boolean = true;
   
   constructor(private afAuth: AngularFireAuth,
               private router: Router,
