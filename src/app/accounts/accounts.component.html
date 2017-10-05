@@ -5,62 +5,62 @@
   </div>
   <div><button class="btn btn-success">Set up a new bank account</button></div>
 </div> -->
-<div class="row">
-    <div class="col-12 py-2">
-      <h1>Beneficiary account</h1>
-      <p>This is the account that money will be transferred to when withdrawals are made. 
+<div class="row justify-content-center">
+  <div class="col-8 py-2">
+    <h1>Beneficiary account</h1>
+    <p>This is the account that money will be transferred to when withdrawals are made. 
       Bear in mind that transactions may take up to 48 hours to reflect. 
-        Please make sure that the information is correct.</p>
-    </div>
+      Please make sure that the information is correct.</p>
   </div>
-  <div class="row">
-    <div class="col-12 pb-2">
-      <!-- <h1>Account Setup</h1>
-      <p>Here you will get your account ready and secure. Let's go.</p> -->
-      <div class="row justify-content-center">
-        <div class="col-10 p-2 justify-content-center">
-          <div class="card px-0">
-            <!-- <div class="card-header bg-inverse text-white">
-              Featured
-            </div> -->
-            <div class="card-block bg-faded">
-              <h2 class="card-title">Your bank account</h2>
-              <div class="container pt-3"> 
-                <div *ngIf="bankAdded">
-                  <div class="row justify-content-center">
-                    <p class="col-md-4 col-lg-3"><strong>Bank: </strong>{{accDeets.bank}}</p>
-                    <p class="col-md-4 col-lg-3"><strong>Account type: </strong>{{accDeets.accType}}</p>
-                    <p class="col-md-4 col-lg-3"><strong>Branch code: </strong>{{accDeets.branchNo}}</p>
-                  </div>
-                  <div class="row justify-content-center">
-                    <p class="col-md-4 col-lg-3"><strong>Account holder:</strong></p>
-                    <p class="col-md-4 col-lg-3">{{accDeets.title}} {{accDeets.initials}} {{accDeets.lname}}</p>
-                  </div>
-                  <div class="row justify-content-center">
-                    <p class="col-md-4 col-lg-3"><strong>Account number:</strong></p>
-                    <p class="col-md-4 col-lg-3">{{accDeets.accNo}}</p>
-                  </div>
+</div>
+<div class="row">
+  <div class="col-12 pb-2">
+    <!-- <h1>Account Setup</h1>
+    <p>Here you will get your account ready and secure. Let's go.</p> -->
+    <div class="row justify-content-center">
+      <div class="col-10 p-2 justify-content-center">
+        <div class="card px-0">
+          <!-- <div class="card-header bg-inverse text-white">
+            Featured
+          </div> -->
+          <div class="card-block bg-faded">
+            <h2 class="card-title">Your bank account</h2>
+            <div class="container pt-3"> 
+              <div *ngIf="bankAdded">
+                <div class="row justify-content-center">
+                  <p class="col-md-4 col-lg-3"><strong>Bank: </strong>{{accDeets.bank}}</p>
+                  <p class="col-md-4 col-lg-3"><strong>Account type: </strong>{{accDeets.accType}}</p>
+                  <p class="col-md-4 col-lg-3"><strong>Branch code: </strong>{{accDeets.branchNo}}</p>
                 </div>
-                <div class="row py-5" *ngIf="!bankAdded">
-                  <div class="col-12 py-5">
-                    <h2 class="lead">No Account information</h2>
-                  </div>
+                <div class="row justify-content-center">
+                  <p class="col-md-4 col-lg-3"><strong>Account holder:</strong></p>
+                  <p class="col-md-4 col-lg-3">{{accDeets.title}} {{accDeets.initials}} {{accDeets.lname}}</p>
+                </div>
+                <div class="row justify-content-center">
+                  <p class="col-md-4 col-lg-3"><strong>Account number:</strong></p>
+                  <p class="col-md-4 col-lg-3">{{accDeets.accNo}}</p>
+                </div>
+              </div>
+              <div class="row py-5" *ngIf="!bankAdded">
+                <div class="col-12 pt-4 pb-5">
+                  <h2 class="lead">No Account information</h2>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <!-- Hide if bank account has already been added -->
-        <div class="col-10 p-2" *ngIf="!bankAdded">
-          <div class="card px-0" style="opacity: 0.7;">
-            <div class="card-block bg-faded">
-              <h2 class="card-title">Add a bank account</h2>
-              <p class="card-text">Create an account where funds will be transferred to.</p>
-              <button class="btn btn-lg btn-primary" style="opacity: 1;" [routerLink]="['/dashboard', {outlets: {'dashoutlet': ['addaccount']}}]">Add an account</button>
-            </div>
+      </div>
+      <!-- Hide if bank account has already been added -->
+      <div class="col-10 p-2" *ngIf="!bankAdded">
+        <div class="card px-0" style="opacity: 0.7;">
+          <div class="card-block bg-faded">
+            <h2 class="card-title">Add a bank account</h2>
+            <p class="card-text">Create an account where funds will be transferred to.</p>
+            <button class="btn btn-lg btn-primary" style="opacity: 1;" [routerLink]="['/dashboard', {outlets: {'dashoutlet': ['addaccount']}}]">Add an account</button>
           </div>
         </div>
       </div>
-  
     </div>
+
   </div>
+</div>

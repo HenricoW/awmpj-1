@@ -22,7 +22,9 @@ export class AccountsComponent implements OnInit {
   
   constructor(private afAuth: AngularFireAuth,
               private db: AngularFireDatabase){
-    this.userdata = JSON.parse(sessionStorage.getItem('userDBentry'))
+    var rawObj = sessionStorage.getItem('userDBentry');
+    // console.log(rawObj);
+    this.userdata = JSON.parse(rawObj)
     this.bankAdded = this.userdata.umeta.bankAcc;
     // db.database.ref('users/'+this.user.uid+'/umeta')
     // .child('bankAcc')
