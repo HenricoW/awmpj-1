@@ -107,6 +107,26 @@ function sendNewUserEmail(fname, lname, uname, email, phone) {
 
 
 /**
+ * Modify phone number to be compatible with target site
+ */
+exports.modeifyPhoneNum = functions.database
+.ref('/users/{pushId}')
+.onCreate(e => {
+  console.log('Updating phone number')
+  var uid = e.params.pushId;
+  var entry = e.data.val();
+  var number = entry.udata.mobile;
+  var prefix = '+27';
+  var newNum = prefix + number.slice(1);
+  console.log('New number is: '+newNum);
+
+  // update db with number
+  return e.data.ref.child('udata').child('mobile').set(newNum);
+})
+
+
+
+/**
  * Generate unique user temporary password
  */
 exports.createTempPassw = functions.database
