@@ -1,3 +1,0 @@
-Project Name: My Project
-ClientID: 957660169018-7jh7eki4gfu8e8roq9cmftgrh4sq5344.apps.googleusercontent.com 
-Secret: uLXpkhWl5Nz0yH_bifjuwDLP
