@@ -12,17 +12,17 @@
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "^4.3.5",
-    "@angular/common": "^4.3.5",
-    "@angular/compiler": "^4.3.5",
-    "@angular/compiler-cli": "^4.3.5",
-    "@angular/core": "^4.3.5",
-    "@angular/forms": "^4.3.5",
+    "@angular/animations": "^12.0.5",
+    "@angular/common": "^12.0.5",
+    "@angular/compiler": "^12.0.5",
+    "@angular/compiler-cli": "^12.0.5",
+    "@angular/core": "^12.0.5",
+    "@angular/forms": "^12.0.5",
     "@angular/http": "^4.3.5",
-    "@angular/platform-browser": "^4.3.5",
-    "@angular/platform-browser-dynamic": "^4.3.5",
-    "@angular/platform-server": "^4.3.5",
-    "@angular/router": "^4.3.5",
+    "@angular/platform-browser": "^12.0.5",
+    "@angular/platform-browser-dynamic": "^12.0.5",
+    "@angular/platform-server": "^12.0.5",
+    "@angular/router": "^12.0.5",
     "@types/jquery": "^3.2.12",
     "angularfire2": "^4.0.0-rc0",
     "core-js": "^2.4.1",
@@ -40,13 +40,13 @@
     "ng2-datepicker": "^1.8.3",
     "ng2-datetime": "^1.4.0",
     "promise-polyfill": "^6.0.2",
+    "rxjs": "^7.1.0",
     "ts-helpers": "^1.1.1",
-    "typescript": "^2.4.2",
-    "zone.js": "^0.7.2"
+    "typescript": "^4.2.4",
+    "zone.js": "^0.11.4"
   },
   "devDependencies": {
     "@angular/cli": "^12.0.5",
-    "@angular/compiler-cli": "^2.3.1",
     "@types/jasmine": "2.5.38",
     "@types/node": "^6.0.42",
     "codelyzer": "~2.0.0-beta.1",
@@ -59,7 +59,6 @@
     "karma-remap-istanbul": "^0.2.1",
     "protractor": "~4.0.13",
     "ts-node": "1.2.1",
-    "tslint": "^4.3.0",
-    "typescript": "~2.0.3"
+    "tslint": "^4.3.0"
   }
 }
