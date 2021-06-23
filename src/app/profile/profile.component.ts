@@ -1,26 +1,28 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from "@angular/core";
 
-import { AngularFireAuth } from 'angularfire2/auth';
-import { AngularFireDatabaseModule, AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
+import { AngularFireAuth } from "@angular/fire/auth";
+import { AngularFireDatabase } from "@angular/fire/database";
 
-import { CommonPropertiesService } from '../common-properties.service';
+import { CommonPropertiesService } from "../common-properties.service";
 
 @Component({
-  selector: 'app-profile',
-  templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.css'],
+  selector: "app-profile",
+  templateUrl: "./profile.component.html",
+  styleUrls: ["./profile.component.css"],
 })
 export class ProfileComponent implements OnInit {
-  private userName: string;
-  private lastName: string;
-  private firstName: string;
-  private eMail: string;
-  private phoneN: string;
+  public userName: string;
+  public lastName: string;
+  public firstName: string;
+  public eMail: string;
+  public phoneN: string;
   private userdata: any;
 
-  constructor(private afAuth: AngularFireAuth,
-              private afDB: AngularFireDatabase,
-              public appProps: CommonPropertiesService) {
+  constructor(
+    private afAuth: AngularFireAuth,
+    private afDB: AngularFireDatabase,
+    public appProps: CommonPropertiesService
+  ) {
     // this.userName = this.appProps.userid;
     // this.userName = this.appProps.userDBentry.udata.uname;
     // console.log(appProps.userid);
@@ -28,8 +30,8 @@ export class ProfileComponent implements OnInit {
     //   this.lastName = this.appProps.userDBentry.udata.lname;
     //   this.eMail = this.appProps.userDBentry.udata.email;
     //   this.phoneN = this.appProps.userDBentry.udata.mobile;
-    
-    this.userdata = JSON.parse(sessionStorage.getItem('userDBentry'));
+
+    this.userdata = JSON.parse(sessionStorage.getItem("userDBentry"));
     this.userName = this.userdata.udata.uname;
     this.firstName = this.userdata.udata.fname;
     this.lastName = this.userdata.udata.lname;
@@ -67,5 +69,4 @@ export class ProfileComponent implements OnInit {
     //   }
     // );
   }
-
 }

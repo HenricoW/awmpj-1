@@ -1,67 +1,192 @@
 <div class="container py-3">
   <div class="row justify-content-center my-5 py-5">
     <div class="card col-sm col-md-8 col-lg-5 px-0">
-      <h5 class="card-header text-center bg-inverse text-white py-4">Welcome to the team</h5>
+      <h5 class="card-header text-center bg-inverse text-white py-4">
+        Welcome to the team
+      </h5>
       <div class="card-block p-4">
         <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
           <div class="form-group">
-            <input placeholder="First Name" type="text" class="form-control" id="fname" required pattern="[a-zA-Z][a-zA-Z]+" [(ngModel)]="model.fname" name="fname" #fname="ngModel">
-            <div [hidden]="fname.valid || fname.pristine" class="alert alert-danger">
-              <div [hidden]="!fname.hasError('required')">First name is required</div>
-              <div [hidden]="!fname.hasError('pattern')">Only alphabet characters, 2 or more allowed</div>
+            <input
+              placeholder="First Name"
+              type="text"
+              class="form-control"
+              id="fname"
+              required
+              pattern="[a-zA-Z][a-zA-Z]+"
+              [(ngModel)]="model.fname"
+              name="fname"
+              #fname="ngModel"
+            />
+            <div
+              [hidden]="fname.valid || fname.pristine"
+              class="alert alert-danger"
+            >
+              <div [hidden]="!fname.hasError('required')">
+                First name is required
+              </div>
+              <div [hidden]="!fname.hasError('pattern')">
+                Only alphabet characters, 2 or more allowed
+              </div>
             </div>
           </div>
           <div class="form-group">
-            <input placeholder="Last Name" type="text" class="form-control" id="lname" required pattern="[a-zA-Z][a-zA-Z -]+" [(ngModel)]="model.lname" name="lname" #lname="ngModel">
-            <div [hidden]="lname.valid || lname.pristine" class="alert alert-danger">
-              <div [hidden]="!lname.hasError('required')">Last name is required</div>
-              <div [hidden]="!lname.hasError('pattern')">Only alphabet characters, 2 or more allowed</div>
-            </div>
-          </div> 
-          <div class="form-group">
-            <input placeholder="User Name" type="text" class="form-control" id="uname" required pattern="[a-zA-Z0-9_]+" [(ngModel)]="model.uname" name="uname" #uname="ngModel">
-            <div [hidden]="uname.valid || uname.pristine" class="alert alert-danger">
-              <div [hidden]="!uname.hasError('required')">User name is required</div>
-              <div [hidden]="!uname.hasError('pattern')">Only one word, alphanumeric names allowed</div>
-            </div>
-          </div>
-          <div class="form-group">
-            <input placeholder="Email Address" type="text" class="form-control" id="emailaddress" required pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" [(ngModel)]="model.email" name="email" #email="ngModel">
-            <div [hidden]="email.valid || email.pristine"class="alert alert-danger">
-              <div [hidden]="!email.hasError('required')">Email is required</div>
-              <div [hidden]="!email.hasError('pattern')">Email format should be <small><b>joe@abc.com</b></small></div>
-            </div>
-          </div>
-          <div class="form-group">
-            <input placeholder="Phone: 0812345678" type="text" class="form-control" id="mobilenumber" required pattern="[0-9]*" minlength="10" maxlength="10" name="mobilenumber" [(ngModel)]="model.mobile" #mobile="ngModel">
-            <div [hidden]="mobile.valid || mobile.pristine" class="alert alert-danger">
-              <div [hidden]="!mobile.hasError('minlength')">Number should be 10 digits</div>
-              <div [hidden]="!mobile.hasError('required')">Mobile number is required</div>
-              <div [hidden]="!mobile.hasError('pattern')">Mobile number should be only numbers</div>
+            <input
+              placeholder="Last Name"
+              type="text"
+              class="form-control"
+              id="lname"
+              required
+              pattern="[a-zA-Z][a-zA-Z -]+"
+              [(ngModel)]="model.lname"
+              name="lname"
+              #lname="ngModel"
+            />
+            <div
+              [hidden]="lname.valid || lname.pristine"
+              class="alert alert-danger"
+            >
+              <div [hidden]="!lname.hasError('required')">
+                Last name is required
+              </div>
+              <div [hidden]="!lname.hasError('pattern')">
+                Only alphabet characters, 2 or more allowed
+              </div>
             </div>
           </div>
           <div class="form-group">
-            <input placeholder="Password" type="password" class="form-control" required minlength="{{passMinLen}}" id="password" [(ngModel)]="model.password" name="password" #password="ngModel">
-            <div [hidden]="password.valid || password.pristine" class="alert alert-danger">
-              <div [hidden]="!password.hasError('required')">Password is required</div>
-              <div [hidden]="!password.hasError('minlength')">Password should be at least {{passMinLen}} characters long</div>
+            <input
+              placeholder="User Name"
+              type="text"
+              class="form-control"
+              id="uname"
+              required
+              pattern="[a-zA-Z0-9_]+"
+              [(ngModel)]="model.uname"
+              name="uname"
+              #uname="ngModel"
+            />
+            <div
+              [hidden]="uname.valid || uname.pristine"
+              class="alert alert-danger"
+            >
+              <div [hidden]="!uname.hasError('required')">
+                User name is required
+              </div>
+              <div [hidden]="!uname.hasError('pattern')">
+                Only one word, alphanumeric names allowed
+              </div>
             </div>
-          </div> 
+          </div>
           <div class="form-group">
-            <input placeholder="Confirm Password" type="password" class="form-control" minlength="6" id="confirmPassword" required [(ngModel)]="model.confirmPassword" name="confirmPassword" #confirmPassword="ngModel" validateEqual="password">
-            <div [hidden]="confirmPassword.valid || confirmPassword.pristine" class="alert alert-danger">Passwords did not match</div>
+            <input
+              placeholder="Email Address"
+              type="text"
+              class="form-control"
+              id="emailaddress"
+              required
+              pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
+              [(ngModel)]="model.email"
+              name="email"
+              #email="ngModel"
+            />
+            <div
+              [hidden]="email.valid || email.pristine"
+              class="alert alert-danger"
+            >
+              <div [hidden]="!email.hasError('required')">
+                Email is required
+              </div>
+              <div [hidden]="!email.hasError('pattern')">
+                Email format should be <small><b>joe@abc.com</b></small>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <input
+              placeholder="Phone: 0812345678"
+              type="text"
+              class="form-control"
+              id="mobilenumber"
+              required
+              pattern="[0-9]*"
+              minlength="10"
+              maxlength="10"
+              name="mobilenumber"
+              [(ngModel)]="model.mobile"
+              #mobile="ngModel"
+            />
+            <div
+              [hidden]="mobile.valid || mobile.pristine"
+              class="alert alert-danger"
+            >
+              <div [hidden]="!mobile.hasError('minlength')">
+                Number should be 10 digits
+              </div>
+              <div [hidden]="!mobile.hasError('required')">
+                Mobile number is required
+              </div>
+              <div [hidden]="!mobile.hasError('pattern')">
+                Mobile number should be only numbers
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <input
+              placeholder="Password"
+              type="password"
+              class="form-control"
+              required
+              minlength="{{ passMinLen }}"
+              id="password"
+              [(ngModel)]="model.password"
+              name="password"
+              #password="ngModel"
+            />
+            <div
+              [hidden]="password.valid || password.pristine"
+              class="alert alert-danger"
+            >
+              <div [hidden]="!password.hasError('required')">
+                Password is required
+              </div>
+              <div [hidden]="!password.hasError('minlength')">
+                Password should be at least {{ passMinLen }} characters long
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <input
+              placeholder="Confirm Password"
+              type="password"
+              class="form-control"
+              minlength="6"
+              id="confirmPassword"
+              required
+              [(ngModel)]="model.confirmPassword"
+              name="confirmPassword"
+              #confirmPassword="ngModel"
+              validateEqual="password"
+            />
+            <div
+              [hidden]="confirmPassword.valid || confirmPassword.pristine"
+              class="alert alert-danger"
+            >
+              Passwords did not match
+            </div>
           </div>
           <p class="bg-faded text-muted py-1 pb-1 mb-2">Date of Birth:</p>
-          <div class="form-group row justify-content-center">
-            <!-- <input placeholder="Confirm Password" type="password" class="form-control" minlength="4" id="confirmPassword" required [(ngModel)]="model.confirmPassword" name="confirmPassword" #confirmPassword="ngModel" validateEqual="password">
-            <div [hidden]="confirmPassword.valid || confirmPassword.pristine" class="alert alert-danger">Passwords did not match</div> -->
-            <my-date-picker class="form-control col-sm-5 pb-1" name="mydate" id="mydate" [options]="myDatePickerOptions" [(ngModel)]="mydate" (dateChanged)="onDateChange($event)" required></my-date-picker>
-            <!-- <div [hidden]="mydate.valid || mydate.pristine" class="alert alert-danger">
-              <div [hidden]="!mydate.hasError('required')">DOB is required</div>
-            </div> -->
+
+          <div class="alert alert-danger" *ngIf="fireDateRequired">
+            That date will not do
           </div>
-          <div class="alert alert-danger" *ngIf="fireDateRequired">That date will not do</div> 
-          <button type="submit" class="btn btn-success btn-block" [disabled]="!loginForm.form.valid || !formValid">Submit</button>
+          <button
+            type="submit"
+            class="btn btn-success btn-block"
+            [disabled]="!loginForm.form.valid || !formValid"
+          >
+            Submit
+          </button>
         </form>
       </div>
     </div>
