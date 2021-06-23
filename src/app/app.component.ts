@@ -1,19 +1,13 @@
-import { Component } from '@angular/core';
+import { Component } from "@angular/core";
 
-import { CommonPropertiesService } from './common-properties.service';
-
+import { CommonPropertiesService } from "./common-properties.service";
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'],
-  providers: [CommonPropertiesService]
+  selector: "app-root",
+  templateUrl: "./app.component.html",
+  styleUrls: ["./app.component.css"],
+  providers: [CommonPropertiesService],
 })
-
 export class AppComponent {
-
-  constructor(public appProps: CommonPropertiesService){}
-  
-  title = 'app works!';
-  // appName = 'Awesome App';
+  constructor(public appProps: CommonPropertiesService) {}
 }
