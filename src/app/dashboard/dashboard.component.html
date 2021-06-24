@@ -1,21 +1,60 @@
 <div class="mt-5">
-  <div id="dash-wrapper" [ngClass]="{'menuDisplayed': displayMenu}">
+  <div id="dash-wrapper" [ngClass]="{ menuDisplayed: displayMenu }">
     <!-- Sidebar -->
     <div id="sidebar" class="pt-5">
       <!-- <h4>{{userName}}</h4> -->
       <ul id="sidebar-nav">
-        <li class="text-left"><a [routerLink]="['/dashboard', {outlets: {'dashoutlet': ['profile']}}]"><span class="fa fa-user-circle-o pr-2 pl-3"></span>Profile</a></li>
-        <li class="text-left"><a [routerLink]="['/dashboard', {outlets: {'dashoutlet': ['acc_setup']}}]"><span class="fa fa-cogs pr-2 pl-3"></span>Set up</a></li>
-        <li class="text-left"><a [routerLink]="['/dashboard', {outlets: {'dashoutlet': ['accounts']}}]"><span class="fa fa-cogs pr-2 pl-3"></span>Accounts</a></li>
-        <li class="text-left"><a [routerLink]="['/dashboard', {outlets: {'dashoutlet': ['transactions']}}]"><span class="fa fa-btc pr-2 pl-3"></span>Transactions</a></li>
+        <li class="text-left">
+          <a
+            [routerLink]="[
+              '/dashboard',
+              { outlets: { dashoutlet: ['profile'] } }
+            ]"
+            ><i class="fas fa-address-book pr-2 pl-3"></i>Profile</a
+          >
+        </li>
+        <li class="text-left">
+          <a
+            [routerLink]="[
+              '/dashboard',
+              { outlets: { dashoutlet: ['acc_setup'] } }
+            ]"
+            ><span class="fa fa-cogs pr-2 pl-3"></span>Set up</a
+          >
+        </li>
+        <li class="text-left">
+          <a
+            [routerLink]="[
+              '/dashboard',
+              { outlets: { dashoutlet: ['accounts'] } }
+            ]"
+            ><span class="fa fa-cogs pr-2 pl-3"></span>Accounts</a
+          >
+        </li>
+        <li class="text-left">
+          <a
+            [routerLink]="[
+              '/dashboard',
+              { outlets: { dashoutlet: ['transactions'] } }
+            ]"
+            ><span class="fa fa-btc pr-2 pl-3"></span>Transactions</a
+          >
+        </li>
       </ul>
-    </div><!-- Sidebar -->
+    </div>
+    <!-- Sidebar -->
     <!-- Page content -->
     <div id="dash-content-wrapper" class="pt-3">
       <!-- Menu button -->
       <div class="row pl-1">
-        <div class="btn btn-default btn-lg fa pl-4" [ngClass]="{'fa-bars':!displayMenu, 'fa-close':displayMenu}" id="menu-toggle" (click)="toggleSideMenu()"></div>
-      </div><!-- Menu button -->
+        <div
+          class="btn btn-default btn-lg fa pl-4"
+          [ngClass]="{ 'fa-bars': !displayMenu, 'fa-close': displayMenu }"
+          id="menu-toggle"
+          (click)="toggleSideMenu()"
+        ></div>
+      </div>
+      <!-- Menu button -->
       <div class="row justify-content-center">
         <div class="col-lg-10">
           <div class="px-2 mx-2 pt-0">
@@ -23,12 +62,12 @@
               <router-outlet name="dashoutlet"></router-outlet>
             </div>
             <div class="row">
-              <div class="col-12 py-2">
-              </div>
+              <div class="col-12 py-2"></div>
             </div>
           </div>
         </div>
       </div>
-    </div><!-- Page content -->
+    </div>
+    <!-- Page content -->
   </div>
 </div>
