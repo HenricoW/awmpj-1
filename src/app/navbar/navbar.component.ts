@@ -46,20 +46,22 @@ export class NavbarComponent implements OnInit {
       this.email,
       this.pass
     );
-    promise.catch((e) => {
-      console.log(e);
-      // this.error = true;
-      if (e) {
-        console.log("log in failed");
-        alert(
-          "Hmmm... Seems you are not registered or you have entered the wrong email and/or password"
-        );
-        this.email = "";
-        this.pass = "";
-        this.loggedin = false;
-      }
-    });
-    // if(!this.error) this.router.navigate(['dashboard']);
+    promise
+      // .then(() => this.router.navigate(["about"]))
+      .catch((e) => {
+        console.log(e);
+        // this.error = true;
+        if (e) {
+          console.log("log in failed");
+          alert(
+            "Hmmm... Seems you are not registered or you have entered the wrong email and/or password"
+          );
+          this.email = "";
+          this.pass = "";
+          this.loggedin = false;
+        }
+      });
+    // if(!this.error) this.router.navigate(['about']);
     // if(!this.error){}
   }
 
@@ -101,7 +103,6 @@ export class NavbarComponent implements OnInit {
         // console.log(snap.val());
         this.getTempPass(e);
         this.getBenifData(e);
-        // this.storeSessData(e.uid);
       })
       .catch((e) => {
         console.log(e.message);
