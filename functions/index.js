@@ -1,6 +1,5 @@
 "use strict";
 const functions = require("firebase-functions");
-// const nodemailer = require('nodemailer');
 const admin = require("firebase-admin"); // Firebase Admin SDK to access Database.
 const generator = require("generate-password");
 
