@@ -46,7 +46,7 @@ export class AccSetupComponent implements OnInit {
       .ref("/users/" + this.uid + "/udata/tempPassw")
       .once("value", (e) => {
         this.pass = e.val();
-        sessionStorage.setItem("userDBentry", this.pass);
+        sessionStorage.setItem("userPw", this.pass);
       });
 
     // this.afAuth.authState.subscribe(e => {
