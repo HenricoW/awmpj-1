@@ -1,7 +1,7 @@
 <div class="container py-3">
   <div class="row justify-content-center my-5 py-5">
     <div class="card col-sm col-md-8 col-lg-5 px-0">
-      <h5 class="card-header text-center bg-inverse text-white py-4">
+      <h5 class="card-header text-center bg-dark text-white py-4">
         Welcome to the team
       </h5>
       <div class="card-block p-4">
@@ -175,11 +175,43 @@
               Passwords did not match
             </div>
           </div>
-          <p class="bg-faded text-muted py-1 pb-1 mb-2">Date of Birth:</p>
-
-          <div class="alert alert-danger" *ngIf="fireDateRequired">
+          <!-- <p class="bg-faded text-muted py-1 pb-1 mb-2">Date of Birth:</p> -->
+          <!-- <div class="input-group row justify-content-center">
+            <input
+              class="form-control col-sm-5 pb-1"
+              name="mydate"
+              id="mydate"
+              placeholder="Select a date"
+              angular-mydatepicker
+              #dp="angular-mydatepicker"
+              [(ngModel)]="mydate"
+              [options]="myDatePickerOptions"
+              (dateChanged)="onDateChange($event)"
+              required
+            />
+            <div class="input-group-append">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                *ngIf="mydate"
+                (click)="dp.clearDate()"
+              >
+                <i class="fa fa-close"></i>
+              </button>
+            </div>
+            <div class="input-group-append">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                (click)="dp.toggleCalendar()"
+              >
+                <i class="fa fa-calendar-o"></i>
+              </button>
+            </div>
+          </div> -->
+          <!-- <div class="alert alert-danger" *ngIf="fireDateRequired">
             That date will not do
-          </div>
+          </div> -->
           <button
             type="submit"
             class="btn btn-success btn-block"

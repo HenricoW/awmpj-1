@@ -1,10 +1,10 @@
-import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs'
+import { Injectable } from "@angular/core";
+import { Subject } from "rxjs";
 
 @Injectable()
 export class CommonPropertiesService {
-  public appName = 'Derivation Analytics';
-  public userid: string = 'initVal';
+  public appName = "Nuvest Analytics";
+  public userid: string = "initVal";
   public userDBentry: any;
   public userTempPass: string;
   public userBeneficiary: any;
@@ -17,9 +17,9 @@ export class CommonPropertiesService {
   useridString$ = this.useridSource.asObservable();
 
   // Service command
-  setUserId(data: string): void { 
+  setUserId(data: string): void {
     this.useridSource.next(data);
-    console.log('setting userid in service');
+    console.log("setting userid in service");
   }
 
   // utility function(s)
@@ -28,5 +28,4 @@ export class CommonPropertiesService {
     d.setUTCMilliseconds(msEpoch);
     return d.toLocaleString();
   }
-  
 }

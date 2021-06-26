@@ -1,31 +1,21 @@
-.card-block{
-    color: black;
-    text-shadow: none;
+.card-block {
+  color: black;
+  text-shadow: none;
 }
 
 .card {
-    color: black;
-    /* opacity: 0.7; */
+  color: black;
 }
 
 table {
-    margin: 0 auto;
+  margin: 0 auto;
 }
 
-/* .card-block a {
-    color: darkslategrey;
-} */
-
-/* a {
-    color: lightsteelblue;
-    color: black;
-} */
-
 .vert-align {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .image-section {
-    max-width: 250px;
+  max-width: 250px;
 }

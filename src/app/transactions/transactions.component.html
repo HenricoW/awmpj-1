@@ -1,27 +1,46 @@
 <div class="row">
   <div class="col-12 py-2">
+    <!-- Top row buttons -->
     <div class="row justify-content-center py-2">
       <div class="col-md-3 py-2">
-        <button class="btn btn-outline-success" (click)="setDep()">Deposit</button>
+        <button class="btn btn-outline-success" (click)="setDep()">
+          Deposit
+        </button>
       </div>
       <div class="col-md-3 py-2">
-        <button class="btn btn-outline-success" (click)="setWdraw()">Withdraw</button>
+        <button class="btn btn-outline-success" (click)="setWdraw()">
+          Withdraw
+        </button>
       </div>
       <div class="col-md-3 py-2">
-        <button class="btn btn-outline-success" (click)="setTxns()">Transactions</button>
+        <button class="btn btn-outline-success" (click)="setTxns()">
+          Transactions
+        </button>
       </div>
     </div>
+    <!-- Switch card(s) -->
     <div class="row justify-content-center py-2">
-      <div class="col-12" *ngIf="radio=='dep'">
+      <!-- Deposit card -->
+      <div class="col-12" *ngIf="radio == 'dep'">
         <div class="card">
-          <div class="card-block">
+          <div class="card-block px-3 py-4">
             <h3>Create a deposit</h3>
             <div *ngIf="canDeposit">
-              <form action="" (ngSubmit)="submitDeposit()"  #depositForm="ngForm">
-                <!-- <div class="lead pb-2">Deposit details</div> -->
+              <form
+                action=""
+                (ngSubmit)="submitDeposit()"
+                #depositForm="ngForm"
+              >
                 <div class="form-group">
                   <label for="bank">Bank:</label>
-                  <select class="form-control" id="bank" required [(ngModel)]="bankVal" name="bank" #bank="ngModel">
+                  <select
+                    class="form-control"
+                    id="bank"
+                    required
+                    [(ngModel)]="bankVal"
+                    name="bank"
+                    #bank="ngModel"
+                  >
                     <option value="Absa" selected="selected">Absa</option>
                     <option value="FNB">FNB</option>
                     <option value="Capitec">Capitec</option>
@@ -33,57 +52,100 @@
                   </select>
                 </div>
                 <div class="form-group">
-                  <input placeholder="Amount ex.: 5000" type="text" class="form-control" id="amount" required pattern="[0-9]*" minlength="4" maxlength="6" [(ngModel)]="amountVal" name="amount" #amount="ngModel">
-                  <div [hidden]="amount.valid || amount.pristine" class="alert alert-danger">
-                    <div [hidden]="!amount.hasError('required')">Amount required</div>
-                    <div [hidden]="!amount.hasError('minlength')">Four (4) digits or more</div>
-                    <div [hidden]="!amount.hasError('pattern')">Invalid amount</div>
+                  <input
+                    placeholder="Amount ex.: 5000"
+                    type="text"
+                    class="form-control"
+                    id="amount"
+                    required
+                    pattern="[0-9]*"
+                    minlength="4"
+                    maxlength="6"
+                    [(ngModel)]="amountVal"
+                    name="amount"
+                    #amount="ngModel"
+                  />
+                  <div
+                    [hidden]="amount.valid || amount.pristine"
+                    class="alert alert-danger"
+                  >
+                    <div [hidden]="!amount.hasError('required')">
+                      Amount required
+                    </div>
+                    <div [hidden]="!amount.hasError('minlength')">
+                      Four (4) digits or more
+                    </div>
+                    <div [hidden]="!amount.hasError('pattern')">
+                      Invalid amount
+                    </div>
                   </div>
                 </div>
-                <p>Create a bank EFT. Use the following code as the REFERENCE:</p>
-                <button disabled="disabled" class="btn btn-lg btn-outline-primary mb-3">{{userDepRef}}</button>
-                <button type="submit" class="btn btn-success btn-block" [disabled]="!depositForm.form.valid">I have made the deposit</button>
+                <p>
+                  Create a bank EFT. Use the following code as the REFERENCE:
+                </p>
+                <button
+                  disabled="disabled"
+                  class="btn btn-lg btn-outline-primary mb-3"
+                >
+                  {{ userDepRef }}
+                </button>
+                <button
+                  type="submit"
+                  class="btn btn-success btn-block"
+                  [disabled]="!depositForm.form.valid"
+                >
+                  I have made the deposit
+                </button>
               </form>
-            </div> <!-- ngIf canDep -->
+            </div>
             <div class="py-5">
-              <p>First secure your account, then add your bcc address in order to make deposits.</p>
+              <p>
+                First secure your account, then add your bcc address in order to
+                make deposits.
+              </p>
             </div>
           </div>
         </div>
       </div>
-      <div class="col-12" *ngIf="radio=='wdraw'">
+      <!-- Withdrawal card -->
+      <div class="col-12" *ngIf="radio == 'wdraw'">
         <div class="card">
-          <div class="card-block">
+          <div class="card-block px-3 py-4">
             <h3>Withdraw</h3>
             <div *ngIf="canWithdraw">
               <p>To do a withdrawal, do the following two steps:</p>
-              <p>Secure account: {{bccSecure}}</p>
-              <p>bcc address: {{bccAddrAdded}}</p>
-              <p>bank account added: {{withdrawAcc}}</p>
+              <p>Secure account: {{ bccSecure }}</p>
+              <p>bcc address: {{ bccAddrAdded }}</p>
+              <p>bank account added: {{ withdrawAcc }}</p>
+              <p>1. Go to your BCC profile page and find your BCC address.</p>
               <p>
-                1. Go to your BCC profile page and find your BCC address.
+                2. Register your BCC address by coming back to this site and
+                paste the address under account settings (You will then be able
+                to send BCC to the address below and we will know it came from
+                you).
               </p>
               <p>
-                2. Register your BCC address by coming back to this site and paste the address under account settings
-                (You will then be able to send BCC to the address below and we will know it came from you).
-              </p>
-              <p>
-                After registering your BCC address with this website and before you send BCC to us, come to this page 
-                and fill out a withdrawal form. This will let us know to expect your BCC coming in.
+                After registering your BCC address with this website and before
+                you send BCC to us, come to this page and fill out a withdrawal
+                form. This will let us know to expect your BCC coming in.
               </p>
             </div>
             <div class="py-5" *ngIf="!canWithdraw">
-              <p>First secure your account, then add your bcc address and bank account in order to make withdrawals.</p>
+              <p>
+                First secure your account, then add your bcc address and bank
+                account in order to make withdrawals.
+              </p>
             </div>
           </div>
         </div>
       </div>
-      <div class="col-12" *ngIf="radio=='txns'">
+      <!-- Transactions card -->
+      <div class="col-12" *ngIf="radio == 'txns'">
         <div class="card">
-          <div class="card-block">
+          <div class="card-block px-3 py-4">
             <h3>Transactions</h3>
-            <hr>
-            <div class="row" style="background-color: dark-grey;">
+            <hr />
+            <div class="row" style="background-color: dark-grey">
               <div class="col-6 col-sm-3"><strong>Time</strong></div>
               <div class="col-6 col-sm-2"><strong>Amount</strong></div>
               <div class="col-6 col-sm-2"><strong>Type</strong></div>
@@ -95,33 +157,28 @@
             </div>
             <div *ngIf="anyTxns">
               <div class="row" *ngFor="let tx of txList">
-                <div class="col-12"><hr></div>
-                <div class="col-6 col-sm-3">{{tx.initTime}}</div>
-                <div class="col-6 col-sm-2">{{tx.amountZAR}}</div>
-                <div class="col-6 col-sm-2">{{tx.isDeposit}}</div>
-                <div class="col-6 col-sm-3">{{tx.localBank}}</div>
-                <div class="col-sm-2">{{tx.depConfirmed}}</div>
+                <div class="col-12"><hr /></div>
+                <div class="col-6 col-sm-3">{{ tx.initTime }}</div>
+                <div class="col-6 col-sm-2">{{ tx.amountZAR }}</div>
+                <div class="col-6 col-sm-2">{{ tx.isDeposit }}</div>
+                <div class="col-6 col-sm-3">{{ tx.localBank }}</div>
+                <div class="col-sm-2">{{ tx.depConfirmed }}</div>
               </div>
             </div>
-            <hr>
+            <hr />
             <!-- <button (click)="getTxns()">Get txns</button> -->
           </div>
         </div>
       </div>
     </div>
-    <!-- <h1>Transaction works</h1> -->
-    <p class="py-3 px-5" style="background-color: rgba(0,0,0,0.8);">Please note: deposits and 
-      withdrawals made on this page are only preparations for the actual deposit 
-      or withdrawal. Create a deposit on this page before you send money. In this way, we know 
-      to expect a payment from you and how much that payment should be. Also, we will know to 
-      link the funds to your bcc account if you use the correct deposit reference. 
+    <!-- Notice field -->
+    <p class="py-3 px-5" style="background-color: rgba(0, 0, 0, 0.8)">
+      Please note: deposits and withdrawals made on this page are only
+      preparations for the actual deposit or withdrawal. Create a deposit on
+      this page before you send money. In this way, we know to expect a payment
+      from you and how much that payment should be. Also, we will know to link
+      the funds to your bcc account if you use the correct deposit reference.
       Withdrawals with bcc addresses are dealt with in the same way.
-
-      <!-- Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aut, possimus eos vitae dolores 
-      at incidunt nulla iste vero consequuntur, accusantium dolor explicabo itaque harum eveniet 
-      quis inventore ipsa necessitatibus, soluta accusamus illum eius molestias enim? Voluptatum 
-      accusamus explicabo quasi quod ducimus aspernatur sequi, eos sit quam cumque at distinctio 
-      perferendis! -->
     </p>
   </div>
 </div>

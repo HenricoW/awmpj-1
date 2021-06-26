@@ -1,28 +1,21 @@
 <div class="site-wrapper">
   <div class="site-wrapper-inner">
-    <div class="cover-container">
-      <!-- <div class="masthead clearfix">
-        <div class="inner">
-          <h5 class="masthead-brand">Cover</h5>
-          <nav class="nav nav-masthead">
-            <a class="nav-link active" href="#">Home</a>
-            <a class="nav-link" href="#">Features</a>
-            <a class="nav-link" href="#">Contact</a>
-          </nav>
-        </div>
-      </div> -->
-
+    <div class="cover-container mt-5 pt-4">
       <div class="inner cover">
-        <h1 class="cover-heading pt-1">{{appName}}</h1>
-        <p class="lead">Unlock the power of blockchain technology and trading bots to your advantage</p>
+        <h1 class="display-3 pt-2 mb-5">{{ appName }}</h1>
+        <p class="lead pb-4">
+          Unlock the power of blockchain technology and trading bots to your
+          advantage
+        </p>
         <div *ngIf="!loggedin">
           <!-- <p class="lead">Sign up for free to get the guide</p> -->
           <p class="lead">
-            <a [routerLink]="['/signup']" class="btn btn-lg btn-success">Register</a>
+            <a [routerLink]="['/signup']" class="btn btn-lg btn-success"
+              >Register</a
+            >
           </p>
         </div>
       </div>
-      
 
       <!-- <div class="row">
         <div class="card mb-4" *ngIf="displayChart">
@@ -46,26 +39,36 @@
           <p>Cover template for <a href="https://getbootstrap.com">Bootstrap</a>, by @mdo.</p>
         </div>
       </div> -->
-    </div> <!-- cover-container -->
+    </div>
+    <!-- cover-container -->
 
     <div class="row px-5 py-5 mt-5 justify-content-center" id="home-dark">
       <div class="col-md-3 col-sm-6 col-12 py-2">
-        <h5>Maximum supply:</h5>
-        <h5><strong>28 000 000</strong></h5>
+        <p>Maximum supply:</p>
+        <h5><strong>21 000 000</strong></h5>
       </div>
       <div class="col-md-3 col-sm-6 col-12 py-2">
-        <h5>Current supply:</h5>
-        <h5><strong> {{coinSupp}} </strong></h5>
+        <p>Current supply:</p>
+        <h5>
+          <strong> {{ coinSupp }} </strong>
+        </h5>
       </div>
       <div class="col-md-3 col-sm-6 col-12 py-2" *ngIf="loggedin">
-        <h5>Price:</h5>
-        <h5><strong> $ {{coinPrice}} </strong></h5>
+        <p>Price:</p>
+        <h5>
+          <strong> $ {{ coinPrice }} </strong>
+        </h5>
       </div>
       <div class="col-md-3 col-sm-6 col-12 py-2" *ngIf="loggedin">
-        <h5>Total market cap:</h5>
-        <h5><strong> $ {{marketCap}} </strong></h5>
+        <p>Total market cap:</p>
+        <h5>
+          <strong> $ {{ marketCap }} </strong>
+        </h5>
       </div>
     </div>
-    <p>Data provided by <strong><a href="https://coinmarketcap.com">coinmarketcap.com</a></strong>:</p>
+    <p class="mt-3">
+      Data provided by
+      <strong><a href="https://www.coingecko.com">coingecko.com</a></strong>
+    </p>
   </div>
 </div>

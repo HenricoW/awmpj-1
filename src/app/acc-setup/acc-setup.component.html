@@ -1,29 +1,23 @@
 <div class="row">
-  <div class="col-12 pb-2">
+  <div class="col-12 py-2">
     <h1>Account Setup</h1>
     <p>Here you will get your account ready and secure. Let's go.</p>
-    <!-- <div class="col-12 p-2">
-      <div class="card px-0">
-        <div class="card-block bg-faded">
-          <h2 class="card-title">Success!</h2>
-          <p class="card-text">Your BCC account is now secure</p>
-          <p class="card-text">Keep your passwords and code card in a safe place and remember them so you can use them when needed.</p>
-          <p class="card-text">You are now ready to roll!</p>
-          <button class="btn btn-lg btn-outline-primary">I have set up my BitConnect Code Card</button>
-        </div>
-      </div>
-    </div> -->
     <div class="col-12 p-2" *ngIf="!activated">
       <div class="card px-0">
-        <!-- <div class="card-header bg-inverse text-white">
-          Featured
-        </div> -->
         <div class="card-block bg-faded p-5">
           <h2 class="card-title">Activate bitconnect account</h2>
           <p class="card-text">You now have a brand new BitConnect account.</p>
-          <p class="card-text">BitConnect will soon send you an e-mail asking you to activate your account. When you do, come back to this page and click the "I have activated my BitConnect account" button.</p>
-          <button class="btn btn-lg btn-outline-primary" (click)="bccActivated()">I have activated my BitConnect account</button>
-          <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+          <p class="card-text">
+            BitConnect will soon send you an e-mail asking you to activate your
+            account. When you do, come back to this page and click the "I have
+            activated my BitConnect account" button.
+          </p>
+          <button
+            class="btn btn-lg btn-outline-primary"
+            (click)="bccActivated()"
+          >
+            BCC account activated
+          </button>
         </div>
       </div>
     </div>
@@ -32,14 +26,26 @@
         <div class="card-block bg-faded p-5">
           <h2 class="card-title">Change your BitConnect password</h2>
           <p class="card-text">Secure your account with a new password</p>
-          <p class="card-text">Shortly we will send you the temporary password used to create your BitConnect account. 
-            It is very important that you change this as soon as possible. 
-            When you receive the e-mail with your temporary password, log in to BitConnect with it, 
-            then go to 'Security' (lock icon) under the menu and follow the instructions under 'CHANGE PASSWORD'. 
-            Please use a different password from the one you used on this website. 
-            Once you have done so, come back to this page and click the button below.</p>
-            <p class="card-text">Your <strong>temporary</strong> password is:   <strong>{{pass}}</strong></p>
-          <button class="btn btn-lg btn-outline-primary" (click)="bccPassChgd()">I have changed my BitConnect password</button>
+          <p class="card-text">
+            Shortly we will send you the temporary password used to create your
+            BitConnect account. It is very important that you change this as
+            soon as possible. When you receive the e-mail with your temporary
+            password, log in to BitConnect with it, then go to 'Security' (lock
+            icon) under the menu and follow the instructions under 'CHANGE
+            PASSWORD'. Please use a different password from the one you used on
+            this website. Once you have done so, come back to this page and
+            click the button below.
+          </p>
+          <p class="card-text">
+            Your <strong>temporary</strong> password is:
+            <strong>{{ pass }}</strong>
+          </p>
+          <button
+            class="btn btn-lg btn-outline-primary"
+            (click)="bccPassChgd()"
+          >
+            BCC password changed
+          </button>
         </div>
       </div>
     </div>
@@ -47,9 +53,18 @@
       <div class="card px-0">
         <div class="card-block bg-faded p-5">
           <h2 class="card-title">Set up 2FA</h2>
-          <p class="card-text">Add an extra layer of security to your BCC account.</p>
-          <p class="card-text">Log in to your BitConnect account, go to 'Security' (lock icon) under the menu and follow the instructions under 'TWO-FACTOR AUTHENTICATION'. Once you have set up two-factor authentication with your phone, come back to this page and click the button below.</p>
-          <button class="btn btn-lg btn-outline-primary" (click)="bcc2FAed()">I have set up two-factor authentication</button>
+          <p class="card-text">
+            Add an extra layer of security to your BCC account.
+          </p>
+          <p class="card-text">
+            Log in to your BitConnect account, go to 'Security' (lock icon)
+            under the menu and follow the instructions under 'TWO-FACTOR
+            AUTHENTICATION'. Once you have set up two-factor authentication with
+            your phone, come back to this page and click the button below.
+          </p>
+          <button class="btn btn-lg btn-outline-primary" (click)="bcc2FAed()">
+            2FA Done
+          </button>
         </div>
       </div>
     </div>
@@ -57,8 +72,11 @@
       <div class="card px-0">
         <div class="card-block bg-faded p-5">
           <h2 class="card-title">Success!</h2>
-          <p class="card-text">Your brand new BitConnect account is now secure. Please remember your password and keep your code card in a safe place. You will need the code card when making withdrawals.</p>
-          <!-- <p class="card-text">BitConnect will soon send you an e-mail asking you to activate your account. When you do, come back to this page and click the "I have activated my BitConnect account" button.</p> -->
+          <p class="card-text">
+            Your brand new BitConnect account is now secure. Please remember
+            your password and keep your code card in a safe place. You will need
+            the code card when making withdrawals.
+          </p>
         </div>
       </div>
     </div>
@@ -67,10 +85,18 @@
         <div class="card-block bg-faded p-5">
           <h2 class="card-title">Create a Code Card</h2>
           <p class="card-text">Secure your withdrawals.</p>
-          <p class="card-text">To be able to withdraw from BitConnect, you will need a Code Card. 
-            Log in to your BitConnect account, go to 'Security' (lock icon) under the menu and follow the instructions under 'CODE CARD'.
-            When you do, come back to this page and click the button below.</p>
-          <button class="btn btn-lg btn-outline-primary" (click)="bccCodeCardMade()">I have set up my BitConnect Code Card</button>
+          <p class="card-text">
+            To be able to withdraw from BitConnect, you will need a Code Card.
+            Log in to your BitConnect account, go to 'Security' (lock icon)
+            under the menu and follow the instructions under 'CODE CARD'. When
+            you do, come back to this page and click the button below.
+          </p>
+          <button
+            class="btn btn-lg btn-outline-primary"
+            (click)="bccCodeCardMade()"
+          >
+            BCC Code Card Done
+          </button>
         </div>
       </div>
     </div>
@@ -78,22 +104,51 @@
       <div class="card px-0">
         <div class="card-block bg-faded p-5">
           <h2 class="card-title">Address</h2>
-          <p class="card-text">Add your BCC address for withdrawals and deposits.</p>
-          <p class="card-text">In order for funds to reflect in your BCC account, we need to know what your bcc account 
-            address is. 
-            Log in to your BitConnect account. On the dashboard (top icon on the left), click on 'Deposit BCC'. 
-            This will show your BCC address. Copy that address, paste it here and click "Set my BCC address"</p>
+          <p class="card-text">
+            Add your BCC address for withdrawals and deposits.
+          </p>
+          <p class="card-text">
+            In order for funds to reflect in your BCC account, we need to know
+            what your bcc account address is. Log in to your BitConnect account.
+            On the dashboard (top icon on the left), click on 'Deposit BCC'.
+            This will show your BCC address. Copy that address, paste it here
+            and click "Set my BCC address"
+          </p>
           <form (ngSubmit)="setBccAddr()" #bccAddrForm="ngForm">
             <div class="form-group">
-              <input placeholder="BCC Address" (keyup)="checkAddr()" type="text" maxlength="64" minlength="64" class="form-control" id="bccAddress" pattern="[a-zA-Z0-9_]*" [(ngModel)]="model.bccAddress" name="bccAddress" #bccAddress="ngModel">
-              <div [hidden]="bccAddress.valid || bccAddress.pristine" class="alert alert-danger">
-                <div [hidden]="!bccAddress.hasError('minlength')">Invalid address</div>
-                <div [hidden]="!bccAddress.hasError('pattern')">Invalid address</div>
+              <input
+                placeholder="BCC Address"
+                (keyup)="checkAddr()"
+                type="text"
+                maxlength="64"
+                minlength="64"
+                class="form-control"
+                id="bccAddress"
+                pattern="[a-zA-Z0-9_]*"
+                [(ngModel)]="model.bccAddress"
+                name="bccAddress"
+                #bccAddress="ngModel"
+              />
+              <div
+                [hidden]="bccAddress.valid || bccAddress.pristine"
+                class="alert alert-danger"
+              >
+                <div [hidden]="!bccAddress.hasError('minlength')">
+                  Invalid address
+                </div>
+                <div [hidden]="!bccAddress.hasError('pattern')">
+                  Invalid address
+                </div>
               </div>
             </div>
-            <button type="submit" class="btn btn-lg btn-outline-primary" [disabled]="!bccAddrForm.form.valid || !formValid">Set my BCC address</button>
+            <button
+              type="submit"
+              class="btn btn-lg btn-outline-primary"
+              [disabled]="!bccAddrForm.form.valid || !formValid"
+            >
+              Set my BCC address
+            </button>
           </form>
-          <!-- <button class="btn btn-lg btn-outline-primary" (click)="setBccAddr()">Set my BCC address</button> -->
         </div>
       </div>
     </div>
