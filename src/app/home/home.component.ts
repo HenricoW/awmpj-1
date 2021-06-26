@@ -29,7 +29,7 @@ export class HomeComponent implements OnInit {
 
   // private url: string = "https://api.coinmarketcap.com/v1/ticker/bitcoin/";
   private url: string =
-    "https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest?CMC_PRO_API_KEY=0951b2aa-7143-4e4f-92cf-11c5b091b5eb&symbol=ETH";
+    "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=bitcoin&order=market_cap_desc&per_page=10&page=1&sparkline=false";
 
   // bar chart properties
   public barChartOptions: any = {
@@ -73,14 +73,19 @@ export class HomeComponent implements OnInit {
     //   console.log(e);
     // })
 
-    fetch(this.url)
+    fetch(this.url, {
+      // method: "GET",
+      // mode: "no-cors",
+      // headers: {
+      //   Accept: "application/json",
+      // },
+    })
       .then((resp) => resp.json())
       .then((data) => {
         // var cmcResp = data[0];
-        // this.coinSupp = cmcResp.available_supply;
-        // this.coinPrice = cmcResp.price_usd;
-        // this.marketCap = cmcResp.market_cap_usd;
-        console.log(data);
+        this.coinSupp = data[0].circulating_supply;
+        this.coinPrice = data[0].current_price;
+        this.marketCap = data[0].market_cap;
       })
       .catch((e) => {
         console.log(e);
