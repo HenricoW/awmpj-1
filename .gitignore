@@ -43,3 +43,7 @@ Thumbs.db
 # database backups
 /db_backups
 textTest.js
+
+src/assets/vid
+AngularFire2 Version 4 - Authentication Service _ AngularFirebase.pdf
+src/assets/fbConfig.ts

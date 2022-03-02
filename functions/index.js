@@ -5,8 +5,8 @@ const generator = require("generate-password");
 
 admin.initializeApp(functions.config().firebase);
 // CHANGE THIS: Configure the `gmail.email` and `gmail.password` Firebase Cloud environment variables.
-const gmailEmail = encodeURIComponent(functions.config().gmail.email);
-const gmailPassword = encodeURIComponent(functions.config().gmail.password);
+// const gmailEmail = encodeURIComponent(functions.config().gmail.email);
+// const gmailPassword = encodeURIComponent(functions.config().gmail.password);
 // const mailTransport = nodemailer.createTransport(`smtps://${gmailEmail}:${gmailPassword}@smtp.gmail.com`);
 
 // CHANGE THIS: Company name to include in the emails

@@ -75,7 +75,7 @@ export class SignupComponent implements OnInit {
       if (auth) {
         // if(!this.userid){this.userid = auth.uid;} else {return;}
         if (auth.uid) {
-          this.router.navigate(["dashboard"]);
+          this.router.navigate(["about"]);
         }
 
         // after account successfully created, upload user data + new uid to db

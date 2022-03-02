@@ -86,9 +86,12 @@ export class AddAccountComponent implements OnInit {
   onSubmit(): void {
     this.accObj = this.accToObj(this.accDeets);
 
+    const user_uid = sessionStorage.getItem("userid");
+    // console.log(user_uid);
+
     this.db.database
       .ref("/beneficiaries")
-      .child(this.user.uid)
+      .child(user_uid)
       .set(this.accObj)
       .then(() => {
         console.log("submitted to db");
@@ -99,7 +102,7 @@ export class AddAccountComponent implements OnInit {
 
     this.db.database
       .ref("/users")
-      .child(this.user.uid)
+      .child(user_uid)
       .child("umeta/bankAcc")
       .set(true)
       .then(() => {
