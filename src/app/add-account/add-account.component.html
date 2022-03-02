@@ -9,10 +9,17 @@
             <div class="container pt-3">
               <div class="row justify-content-center">
                 <div class="col-sm-8">
-                  <form action="" (ngSubmit)="onSubmit()"  #bankAccForm="ngForm">
+                  <form action="" (ngSubmit)="onSubmit()" #bankAccForm="ngForm">
                     <div class="lead pb-2">Account holder details</div>
                     <div class="form-group">
-                      <select class="form-control" id="title" required [(ngModel)]="accDeets.title" name="title" #title="ngModel">
+                      <select
+                        class="form-control"
+                        id="title"
+                        required
+                        [(ngModel)]="accDeets.title"
+                        name="title"
+                        #title="ngModel"
+                      >
                         <option value="Mr." selected="selected">Mr.</option>
                         <option value="Ms.">Ms.</option>
                         <option value="Mrs.">Mrs.</option>
@@ -21,22 +28,64 @@
                       </select>
                     </div>
                     <div class="form-group">
-                      <input placeholder="Initials" type="text" class="form-control" id="initials" required pattern="[a-zA-Z]+" maxlength="5" [(ngModel)]="accDeets.initials" name="initials" #initials="ngModel">
-                      <div [hidden]="initials.valid || initials.pristine" class="alert alert-danger">
-                        <div [hidden]="!initials.hasError('required')">Initials required</div>
-                        <div [hidden]="!initials.hasError('pattern')">Only alphabet characters allowed</div>
+                      <input
+                        placeholder="Initials"
+                        type="text"
+                        class="form-control"
+                        id="initials"
+                        required
+                        pattern="[a-zA-Z]+"
+                        maxlength="5"
+                        [(ngModel)]="accDeets.initials"
+                        name="initials"
+                        #initials="ngModel"
+                      />
+                      <div
+                        [hidden]="initials.valid || initials.pristine"
+                        class="alert alert-danger"
+                      >
+                        <div [hidden]="!initials.hasError('required')">
+                          Initials required
+                        </div>
+                        <div [hidden]="!initials.hasError('pattern')">
+                          Only alphabet characters allowed
+                        </div>
                       </div>
                     </div>
                     <div class="form-group">
-                      <input placeholder="Last Name" type="text" class="form-control" id="lname" required pattern="[a-zA-Z][a-zA-Z -]+" [(ngModel)]="accDeets.lname" name="lname" #lname="ngModel">
-                      <div [hidden]="lname.valid || lname.pristine" class="alert alert-danger">
-                        <div [hidden]="!lname.hasError('required')">Last name is required</div>
-                        <div [hidden]="!lname.hasError('pattern')">Only alphabet characters, 2 or more allowed</div>
+                      <input
+                        placeholder="Last Name"
+                        type="text"
+                        class="form-control"
+                        id="lname"
+                        required
+                        pattern="[a-zA-Z][a-zA-Z -]+"
+                        [(ngModel)]="accDeets.lname"
+                        name="lname"
+                        #lname="ngModel"
+                      />
+                      <div
+                        [hidden]="lname.valid || lname.pristine"
+                        class="alert alert-danger"
+                      >
+                        <div [hidden]="!lname.hasError('required')">
+                          Last name is required
+                        </div>
+                        <div [hidden]="!lname.hasError('pattern')">
+                          Only alphabet characters, 2 or more allowed
+                        </div>
                       </div>
                     </div>
                     <div class="lead pb-2">Account details</div>
                     <div class="form-group">
-                      <select class="form-control" id="bank" required [(ngModel)]="accDeets.bank" name="bank" #bank="ngModel">
+                      <select
+                        class="form-control"
+                        id="bank"
+                        required
+                        [(ngModel)]="accDeets.bank"
+                        name="bank"
+                        #bank="ngModel"
+                      >
                         <option value="Absa" selected="selected">Absa</option>
                         <option value="FNB">FNB</option>
                         <option value="mrs">Capitec</option>
@@ -48,29 +97,86 @@
                       </select>
                     </div>
                     <div class="form-group">
-                      <input placeholder="Branch code" type="text" class="form-control" id="branchNo" required pattern="[0-9]*" minlength="4" maxlength="6" name="branchNo" [(ngModel)]="accDeets.branchNo" #branchNo="ngModel">
-                      <div [hidden]="branchNo.valid || branchNo.pristine" class="alert alert-danger">
-                        <div [hidden]="!branchNo.hasError('minlength')">Branch code should be more than 4 digits</div>
-                        <div [hidden]="!branchNo.hasError('required')">Branch code is required</div>
-                        <div [hidden]="!branchNo.hasError('pattern')">Branch code should be only numbers</div>
+                      <input
+                        placeholder="Branch code"
+                        type="text"
+                        class="form-control"
+                        id="branchNo"
+                        required
+                        pattern="[0-9]*"
+                        minlength="4"
+                        maxlength="6"
+                        name="branchNo"
+                        [(ngModel)]="accDeets.branchNo"
+                        #branchNo="ngModel"
+                      />
+                      <div
+                        [hidden]="branchNo.valid || branchNo.pristine"
+                        class="alert alert-danger"
+                      >
+                        <div [hidden]="!branchNo.hasError('minlength')">
+                          Branch code should be more than 4 digits
+                        </div>
+                        <div [hidden]="!branchNo.hasError('required')">
+                          Branch code is required
+                        </div>
+                        <div [hidden]="!branchNo.hasError('pattern')">
+                          Branch code should be only numbers
+                        </div>
                       </div>
                     </div>
                     <div class="form-group">
-                      <select class="form-control" id="accType" required [(ngModel)]="accDeets.accType" name="accType" #accType="ngModel">
-                        <option value="Cheque" selected="selected">Cheque</option>
+                      <select
+                        class="form-control"
+                        id="accType"
+                        required
+                        [(ngModel)]="accDeets.accType"
+                        name="accType"
+                        #accType="ngModel"
+                      >
+                        <option value="Cheque" selected="selected">
+                          Cheque
+                        </option>
                         <option value="Credit">Credit</option>
                         <option value="Savings">Savings</option>
                       </select>
                     </div>
                     <div class="form-group">
-                      <input placeholder="Account number" type="text" class="form-control" id="accNo" required pattern="[0-9]*" minlength="10" maxlength="15" name="accNo" [(ngModel)]="accDeets.accNo" #accNo="ngModel">
-                      <div [hidden]="accNo.valid || accNo.pristine" class="alert alert-danger">
-                        <div [hidden]="!accNo.hasError('minlength')">Account number should be more than 10 digits</div>
-                        <div [hidden]="!accNo.hasError('required')">Account number is required</div>
-                        <div [hidden]="!accNo.hasError('pattern')">Account number should be only numbers</div>
+                      <input
+                        placeholder="Account number"
+                        type="text"
+                        class="form-control"
+                        id="accNo"
+                        required
+                        pattern="[0-9]*"
+                        minlength="10"
+                        maxlength="15"
+                        name="accNo"
+                        [(ngModel)]="accDeets.accNo"
+                        #accNo="ngModel"
+                      />
+                      <div
+                        [hidden]="accNo.valid || accNo.pristine"
+                        class="alert alert-danger"
+                      >
+                        <div [hidden]="!accNo.hasError('minlength')">
+                          Account number should be more than 10 digits
+                        </div>
+                        <div [hidden]="!accNo.hasError('required')">
+                          Account number is required
+                        </div>
+                        <div [hidden]="!accNo.hasError('pattern')">
+                          Account number should be only numbers
+                        </div>
                       </div>
                     </div>
-                    <button type="submit" class="btn btn-success btn-block mb-3" [disabled]="!bankAccForm.form.valid">Submit</button>
+                    <button
+                      type="submit"
+                      class="btn btn-success btn-block mb-3"
+                      [disabled]="!bankAccForm.form.valid"
+                    >
+                      Submit
+                    </button>
                   </form>
                 </div>
               </div>
